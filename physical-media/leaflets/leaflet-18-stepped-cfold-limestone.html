@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet 18 (Iter 3 · Stepped C-Fold 85|106|106 · Limestone · 4 Feasts)</title>
+  <link rel="stylesheet" href="../assets/brand.css">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    body {
+      background: #1a1816;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12mm;
+      padding: 10mm 0;
+    }
+    /* Stepped C-fold: 106mm (V) | 106mm (VI Back) | 85mm (I Cover) -> leaves a deliberate 21mm visible right spine tab on VI! */
+    .sheet {
+      width: 297mm;
+      height: 210mm;
+      display: grid;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      page-break-after: always;
+    }
+    .outside { grid-template-columns: 106mm 106mm 85mm; }
+    .inside { grid-template-columns: 85mm 106mm 106mm; }
+    .panel {
+      height: 210mm;
+      padding: 11mm 9mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .dark { background: var(--bg-primary); color: var(--sandstone-light); }
+    .light {
+      background: var(--sandstone-light);
+      color: var(--bg-primary);
+      border-right: 0.25mm solid rgba(14, 13, 12, 0.14);
+    }
+    .light:last-child { border-right: none; }
+    .pg-num {
+      position: absolute;
+      bottom: 3.5mm;
+      right: 4.5mm;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      opacity: 0.65;
+      z-index: 5;
+    }
+    .light .pg-num { color: #755632; }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2mm;
+    }
+    .light .eyebrow { color: #755632; }
+    h2.title { font-family: var(--font-heading); font-size: 19pt; line-height: 1.06; margin-bottom: 3mm; }
+    .body-copy { font-family: var(--font-sans); font-size: 8.8pt; line-height: 1.48; }
+    .dark .body-copy { color: var(--text-main); }
+    .light .body-copy { color: #24201d; }
+
+    /* Cover (85mm) */
+    .cover { padding: 0; }
+    .cover .bg { position: absolute; inset: 0; }
+    .cover .bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
+    .cover .inner {
+      position: relative;
+      z-index: 2;
+      margin: 4.5mm;
+      height: calc(100% - 9mm);
+      padding: 10mm 7mm;
+      border: 0.35mm solid rgba(181, 149, 107, 0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(14,13,12,0.84) 0%, rgba(14,13,12,0.14) 50%, rgba(14,13,12,0.92) 100%);
+    }
+    .wordmark { font-family: var(--font-heading); font-size: 21pt; letter-spacing: 0.18em; line-height: 1; }
+    .tagline { font-family: var(--font-tagline); font-size: 25pt; color: var(--gold); line-height: 1; }
+
+    /* Stepped Back (106mm = 85mm main + 21mm visible left/right tab when cover folds over) */
+    .back-stepped { padding: 0; display: grid; grid-template-columns: 21mm 85mm; }
+    .spine-tab {
+      background: var(--bg-secondary);
+      border-right: 0.4mm solid rgba(181, 149, 107, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .spine-tab span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--font-heading);
+      font-size: 10.5pt;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .back-main {
+      padding: 11mm 8.5mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .c-line { border-bottom: 0.25mm solid rgba(181, 149, 107, 0.25); padding: 2mm 0; font-family: var(--font-sans); font-size: 9.2pt; font-weight: 600; }
+    .c-line span { font-size: 6.2pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: block; }
+    .qr-box { width: 26mm; height: 26mm; background: var(--sandstone-light); padding: 1mm; flex-shrink: 0; }
+    .qr-box img { width: 100%; height: 100%; display: block; }
+
+    .photo-box { width: 100%; overflow: hidden; border: 0.35mm solid rgba(14, 13, 12, 0.2); padding: 1.5mm; background: #fffdfb; }
+    .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .step { border-top: 0.3mm solid rgba(14, 13, 12, 0.16); padding-top: 2.5mm; margin-top: 2.5mm; }
+    .step strong { font-family: var(--font-heading); font-size: 10.5pt; color: #755632; display: block; margin-bottom: 0.5mm; }
+
+    .plate-pair { display: flex; flex-direction: column; gap: 4.5mm; flex: 1; }
+    .plate-card {
+      background: #fffdfb;
+      border: 0.35mm solid rgba(14, 13, 12, 0.18);
+      padding: 2.5mm;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .plate-card .p-img { flex: 1; min-height: 44mm; overflow: hidden; }
+    .plate-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .plate-card .p-body { padding-top: 2.5mm; }
+    .plate-card h3 { font-family: var(--font-heading); font-size: 12.5pt; color: var(--bg-primary); margin: 0.5mm 0 0.8mm; }
+    .plate-card p { font-family: var(--font-sans); font-size: 8.2pt; line-height: 1.38; color: #24201d; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .sheet { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- OUTSIDE: V (106mm Meet Josh) | VI (106mm Stepped Back + 21mm Visible Spine) | I (85mm Cover) -->
+  <div class="sheet outside">
+    <section class="panel light">
+      <span class="pg-num">V</span>
+      <div>
+        <div class="eyebrow">The Founder &amp; Chef</div>
+        <h2 class="title">Meet Josh</h2>
+        <div class="photo-box" style="height: 62mm; margin-bottom: 4mm;">
+          <img src="../assets/images/banquet-cheers-guests.webp" alt="Josh toasting with guests">
+        </div>
+        <p class="body-copy">
+          Raised across Cantonese, Shanghainese, Egyptian, Russian, Dutch and British kitchens, Josh started cooking at 10 and turns archival manuscripts into memorable dinner-table journeys.
+        </p>
+      </div>
+      <p class="body-copy" style="font-family: var(--font-body); font-style: italic; color: #755632;">
+        "An adventure, where the only guarantee was being well fed."
+      </p>
+    </section>
+
+    <section class="panel dark back-stepped">
+      <div class="spine-tab"><span>EPOCHURIAN · LONDON · PRIVATE BANQUETS</span></div>
+      <div class="back-main">
+        <span class="pg-num">VI</span>
+        <div>
+          <div class="eyebrow">Begin Your Journey</div>
+          <h2 class="title" style="font-size: 17pt;">Enquire &amp; Book</h2>
+          <p class="body-copy" style="font-size: 8.4pt;">
+            6–24 guests in your home across London, or limited dates in our N10 garden.
+          </p>
+          <div style="margin-top: 3.5mm; border-top: 0.35mm solid rgba(181,149,107,0.35);">
+            <div class="c-line"><span>Website</span>epochurian.com</div>
+            <div class="c-line"><span>Email</span>info@epochurian.com</div>
+            <div class="c-line"><span>Phone &amp; WhatsApp</span>+44 7874 898636</div>
+            <div class="c-line" style="border-bottom: none;"><span>Instagram</span>@epochurian</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 3mm;">
+          <div class="qr-box"><img src="../assets/qr-web-dark.svg" alt="QR"></div>
+          <p class="body-copy" style="font-size: 7.8pt;">Scan to view menus &amp; check availability.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel dark cover">
+      <span class="pg-num">I</span>
+      <div class="bg"><img src="../assets/images/norman-dessert-table.webp" alt="Banquet dessert table"></div>
+      <div class="inner">
+        <div>
+          <div class="wordmark">EPOCHURIAN</div>
+          <div class="tagline">Taste History</div>
+        </div>
+        <div>
+          <h1 style="font-family: var(--font-heading); font-size: 18pt; line-height: 1.08; margin-bottom: 2.5mm;">Historical Banquets in Your Home</h1>
+          <p class="eyebrow" style="margin: 0; color: var(--gold-hover);">Private Chef · London</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- INSIDE: II (85mm What We Do & How It Works) | III (106mm Plates 1-2) | IV (106mm Plates 3-4) -->
+  <div class="sheet inside">
+    <section class="panel light">
+      <span class="pg-num">II</span>
+      <div>
+        <div class="eyebrow">Private Dining, Reimagined</div>
+        <h2 class="title" style="font-size: 17.5pt;">How It Works</h2>
+        <p class="body-copy" style="font-size: 8.4pt;">
+          "Everything I ate was new and I enjoyed every bite." — <strong style="color:#755632;">Ming guest, N. London</strong>
+        </p>
+        <div class="step">
+          <strong>I. Any Era</strong>
+          <p class="body-copy" style="font-size: 8.3pt;">Pick a signature menu or commission any period.</p>
+        </div>
+        <div class="step">
+          <strong>II. Consultation</strong>
+          <p class="body-copy" style="font-size: 8.3pt;">Tailored to dietaries &amp; domestic kitchens of any size.</p>
+        </div>
+        <div class="step">
+          <strong>III. Live Service</strong>
+          <p class="body-copy" style="font-size: 8.3pt;">Course-by-course history; kitchen left spotless.</p>
+        </div>
+      </div>
+      <div class="eyebrow" style="margin: 0;">Bespoke Per-Head · 6–24 Guests</div>
+    </section>
+
+    <section class="panel light">
+      <span class="pg-num">III</span>
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        <div class="eyebrow">The Exhibition (Plates I–II)</div>
+        <div class="plate-pair">
+          <article class="plate-card">
+            <div class="p-img"><img src="../assets/images/saladin-confections.jpg" alt="Court of Saladin"></div>
+            <div class="p-body">
+              <div class="eyebrow" style="font-size: 6.2pt; margin: 0;">12th C. Holy Land · Plate II</div>
+              <h3>The Court of Saladin</h3>
+              <p>Spit-roast centrepiece &amp; soured pomegranate confection.</p>
+            </div>
+          </article>
+          <article class="plate-card">
+            <div class="p-img"><img src="../assets/images/IMG_7887 aztec equal crop.png" alt="Tenochtitlan 1519"></div>
+            <div class="p-body">
+              <div class="eyebrow" style="font-size: 6.2pt; margin: 0;">Tenochtitlan, 1519 · Plate VI</div>
+              <h3>Voyage to the New World</h3>
+              <p>Mole, heritage turkey &amp; three sisters.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel light">
+      <span class="pg-num">IV</span>
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        <div class="eyebrow">The Exhibition (Plates III–IV)</div>
+        <div class="plate-pair">
+          <article class="plate-card">
+            <div class="p-img"><img src="../assets/images/russia.jpg" alt="Aristocratic Dacha"></div>
+            <div class="p-body">
+              <div class="eyebrow" style="font-size: 6.2pt; margin: 0;">19th C. Russia · Plate IV</div>
+              <h3>The Aristocratic Dacha</h3>
+              <p>Romanov estate classics &amp; blini with caviar.</p>
+            </div>
+          </article>
+          <article class="plate-card">
+            <div class="p-img"><img src="../assets/images/norman-venison.webp" alt="Norman Conquest"></div>
+            <div class="p-body">
+              <div class="eyebrow" style="font-size: 6.2pt; margin: 0;">11th C. England · Plate I</div>
+              <h3>The Norman Conquest</h3>
+              <p>Spiced forest game &amp; venison with duck liver.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

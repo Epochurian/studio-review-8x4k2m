@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 26 (08 Museum Dark: Aztec — Exhibition)</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-26 {
+      background: var(--bg-primary);
+      color: var(--sandstone-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15mm 18mm 14mm;
+    }
+
+    .obsidian-border {
+      position: absolute;
+      inset: 7.5mm;
+      border: 0.45mm solid rgba(181, 149, 107, 0.28);
+      pointer-events: none;
+    }
+
+    .top-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 0.5mm solid rgba(181, 149, 107, 0.45);
+      padding-bottom: 3.5mm;
+    }
+    .top-bar .wordmark {
+      font-family: var(--font-heading);
+      font-size: 45pt;
+      letter-spacing: 0.22em;
+      color: var(--sandstone-light);
+      line-height: 1;
+    }
+    .top-bar .tagline {
+      font-family: var(--font-tagline);
+      font-size: 48pt;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .headline-zone {
+      position: relative;
+      z-index: 2;
+      padding: 5.5mm 0 4.5mm;
+      text-align: left;
+    }
+    .headline-zone h1 {
+      font-family: var(--font-display);
+      font-size: 62pt;
+      line-height: 0.94;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .headline-zone h1 .accent {
+      color: var(--gold);
+    }
+    .headline-zone .deck {
+      margin-top: 3.5mm;
+      font-family: var(--font-editorial);
+      font-size: 20pt;
+      line-height: 1.25;
+      color: var(--text-main);
+      max-width: 220mm;
+    }
+
+    .plate-frame {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      border: 0.45mm solid rgba(181, 149, 107, 0.3);
+      padding: 4.5mm;
+      background: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .plate-img-wrap {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .plate-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .plate-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 3.5mm;
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+    }
+
+    .bottom-placard {
+      position: relative;
+      z-index: 2;
+      margin-top: 5.5mm;
+      border-top: 0.5mm solid rgba(181, 149, 107, 0.45);
+      padding-top: 5mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .placard-info .placard-title {
+      font-family: var(--font-heading);
+      font-size: 22pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 2mm;
+    }
+    .placard-info .details {
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .qr-cluster {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+    }
+    .qr-cluster .links {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .qr-cluster .links .site {
+      font-size: 21pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .qr-cluster .links .email {
+      font-size: 15pt;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-main);
+      margin-top: 1.2mm;
+    }
+    .qr-cluster .links .handle {
+      font-size: 15pt;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--gold-hover);
+      margin-top: 1mm;
+    }
+    .qr-cluster .qr {
+      width: 36mm;
+      height: 36mm;
+      border: 0.4mm solid rgba(181, 149, 107, 0.45);
+      padding: 1mm;
+      background: var(--sandstone-light);
+    }
+    .qr-cluster .qr img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-26">
+    <div class="obsidian-border"></div>
+
+    <header class="top-bar">
+      <div class="wordmark">EPOCHURIAN</div>
+      <div class="tagline">Taste History</div>
+    </header>
+
+    <section class="headline-zone">
+      <h1>An Exhibition<br><span class="accent">You Can Eat.</span></h1>
+      <p class="deck">Historical banquets in your own home</p>
+    </section>
+
+    <figure class="plate-frame">
+      <div class="plate-img-wrap">
+        <img src="assets/images/IMG_7887 aztec equal crop.png" alt="Aztec feast plate with mole, heritage turkey, and three sisters">
+      </div>
+      <figcaption class="plate-label">
+        <span>Plate VI · Tenochtitlan, 1519</span>
+        <span>Mole · Heritage Turkey · Three Sisters</span>
+      </figcaption>
+    </figure>
+
+    <footer class="bottom-placard">
+      <div class="placard-info">
+        <div class="placard-title">Historical Private Dining</div>
+        <div class="details">Private Homes &nbsp;·&nbsp; N10 Garden</div>
+      </div>
+      <div class="qr-cluster">
+        <div class="links">
+          <div class="site">epochurian.com</div>
+          <div class="email">info@epochurian.com</div>
+          <div class="handle">@epochurian</div>
+        </div>
+        <div class="qr">
+          <img src="assets/qr-web-dark.svg" alt="Scan for epochurian.com">
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

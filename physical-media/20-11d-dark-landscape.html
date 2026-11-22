@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 20 (11D: Dark A3 Landscape)</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    @page {
+      size: A3 landscape;
+      margin: 0;
+    }
+
+    .poster-20 {
+      width: 420mm;
+      height: 297mm;
+      background: #0e0d0c;
+      color: var(--sandstone-light);
+      display: grid;
+      grid-template-columns: 1fr 228mm;
+      gap: 14mm;
+      padding: 15mm 18mm;
+      align-items: stretch;
+    }
+
+    /* Left Column: Brand + Years + Headline + QR */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .brand-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.4mm solid rgba(179, 147, 106, 0.45);
+      padding-bottom: 3.5mm;
+    }
+    .brand-bar .brand {
+      font-family: var(--font-display);
+      font-size: 22pt;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+    }
+    .brand-bar .loc {
+      font-family: var(--font-sans);
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+    }
+
+    /* Compact 2x2 grid of years so they read cleanly in landscape */
+    .years-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm 8mm;
+      margin: 4mm 0;
+    }
+    .year-cell {
+      border-bottom: 0.35mm solid rgba(197, 179, 161, 0.22);
+      padding-bottom: 3.5mm;
+    }
+    .year-num {
+      font-family: var(--font-display);
+      font-size: 56pt;
+      line-height: 0.88;
+      color: rgba(245, 241, 237, 0.24);
+    }
+    .year-num.lit {
+      color: var(--sandstone-light);
+    }
+    .year-city {
+      margin-top: 1.5mm;
+      font-family: var(--font-sans);
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hook-block h1 {
+      font-family: var(--font-display);
+      font-size: 46pt;
+      line-height: 0.96;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .hook-block h1 span {
+      color: var(--gold-hover);
+    }
+    .hook-block p {
+      margin-top: 3mm;
+      font-family: var(--font-editorial);
+      font-size: 17.5pt;
+      line-height: 1.3;
+      color: var(--sandstone);
+    }
+
+    .footer-bar {
+      border-top: 0.4mm solid rgba(179, 147, 106, 0.45);
+      padding-top: 4.5mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-links .url {
+      font-family: var(--font-sans);
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .footer-links .ig {
+      font-family: var(--font-sans);
+      font-size: 14pt;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-top: 1mm;
+    }
+    .qr-box {
+      width: 28mm;
+      height: 28mm;
+      padding: 1.5mm;
+      border: 0.4mm solid rgba(179, 147, 106, 0.55);
+      background: #0e0d0c;
+    }
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Right Column: Big 1:1 Square Photo */
+    .right-square {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .square-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 0.6mm solid var(--gold);
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+      position: relative;
+    }
+    .square-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .square-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 7mm 6mm 4.5mm;
+      background: linear-gradient(to top, rgba(14, 13, 12, 0.92) 0%, rgba(14, 13, 12, 0) 100%);
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-hover);
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-20">
+    <div class="left-col">
+      <header class="brand-bar">
+        <div class="brand">EPOCHURIAN</div>
+        <div class="loc">London · Private Dining</div>
+      </header>
+
+      <section class="years-grid">
+        <div class="year-cell">
+          <div class="year-num">1066</div>
+          <div class="year-city">Normandy</div>
+        </div>
+        <div class="year-cell">
+          <div class="year-num">1420</div>
+          <div class="year-city">Florence</div>
+        </div>
+        <div class="year-cell">
+          <div class="year-num">1519</div>
+          <div class="year-city">Tenochtitlan</div>
+        </div>
+        <div class="year-cell">
+          <div class="year-num lit">1840</div>
+          <div class="year-city">St. Petersburg</div>
+        </div>
+      </section>
+
+      <section class="hook-block">
+        <h1>Pick a Setting.<br><span>We’ll Do the Rest.</span></h1>
+        <p>Multi-course historical banquets in your own home or our N10 garden.</p>
+      </section>
+
+      <footer class="footer-bar">
+        <div class="footer-links">
+          <div class="url">epochurian.com</div>
+          <div class="ig">@epochurian</div>
+        </div>
+        <div class="qr-box">
+          <img src="assets/qr-web-gold.svg" alt="Scan for epochurian.com">
+        </div>
+      </footer>
+    </div>
+
+    <div class="right-square">
+      <div class="square-frame">
+        <img src="assets/images/russia.jpg" alt="1840 St. Petersburg poached plum with burnt sugar shards on gold cloth">
+        <div class="square-caption">1840 St. Petersburg · Poached Plum &amp; Burnt Sugar</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

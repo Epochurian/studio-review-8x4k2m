@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 10 Haute Couture B&amp;W Atelier</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-10 {
+      background: #080807;
+      color: #f5f1ed;
+    }
+
+    .bw-hero {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: contrast(1.12) brightness(0.92);
+    }
+
+    /* Editorial vignette keeping Josh and the 16 bowls crystal-clear */
+    .atelier-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8, 8, 7, 0.84) 0%,
+        rgba(8, 8, 7, 0.15) 26%,
+        rgba(8, 8, 7, 0.08) 55%,
+        rgba(8, 8, 7, 0.88) 80%,
+        rgba(8, 8, 7, 0.97) 100%
+      );
+    }
+
+    .layout {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 17mm 19mm 15mm;
+    }
+
+    /* Top Haute-Couture Masthead */
+    .masthead {
+      text-align: center;
+      border-bottom: 0.35mm solid rgba(212, 175, 127, 0.5);
+      padding-bottom: 5mm;
+    }
+    .masthead .brand {
+      font-family: var(--font-display);
+      font-size: 46pt;
+      letter-spacing: 0.24em;
+      color: var(--sandstone-light);
+      line-height: 1;
+      padding-left: 0.24em;
+    }
+    .masthead .atelier-sub {
+      margin-top: 2.5mm;
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-hover);
+    }
+
+    /* Bottom Monograph Statement */
+    .bottom-statement {
+      margin-top: auto;
+    }
+    .statement-kicker {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-hover);
+      margin-bottom: 3mm;
+    }
+    .statement-title {
+      font-family: var(--font-display);
+      font-size: 42pt;
+      line-height: 0.98;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    .statement-title .gold {
+      color: var(--gold-hover);
+    }
+
+    .footer-bar {
+      margin-top: 6mm;
+      padding-top: 5mm;
+      border-top: 0.35mm solid rgba(212, 175, 127, 0.45);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 15.5pt;
+      color: var(--sandstone);
+    }
+    .footer-qr-group {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+    }
+    .footer-qr-group .meta {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .footer-qr-group .meta .url {
+      font-size: 10.5pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    .footer-qr-group .meta .ig {
+      font-size: 8.5pt;
+      letter-spacing: 0.18em;
+      color: var(--gold-hover);
+      margin-top: 1mm;
+    }
+    .footer-qr-group .qr {
+      width: 20mm;
+      height: 20mm;
+      padding: 1.2mm;
+      border: 0.35mm solid rgba(212, 175, 127, 0.55);
+      background: #080807;
+    }
+    .footer-qr-group .qr img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-10">
+    <img class="bw-hero" src="assets/images/banquet-cheers-guests.webp" alt="Chef plating rows of historical banquet bowls">
+    <div class="atelier-scrim"></div>
+
+    <div class="layout">
+      <header class="masthead">
+        <div class="brand">EPOCHURIAN</div>
+        <div class="atelier-sub">London &nbsp;·&nbsp; Bespoke Historical Dining</div>
+      </header>
+
+      <section class="bottom-statement">
+        <div class="statement-kicker">Private Commissions · Your Table or Our N10 Garden</div>
+        <h1 class="statement-title">
+          By Appointment to<br>
+          <span class="gold">Lost Empires.</span>
+        </h1>
+
+        <div class="footer-bar">
+          <div class="footer-copy">Bespoke multi-course banquets from vanished centuries.</div>
+          <div class="footer-qr-group">
+            <div class="meta">
+              <div class="url">epochurian.com</div>
+              <div class="ig">@epochurian</div>
+            </div>
+            <div class="qr">
+              <img src="assets/qr-web-gold.svg" alt="Scan to visit epochurian.com">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

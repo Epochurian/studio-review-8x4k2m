@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 11 Monumental Years</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-11 {
+      background: #0e0d0c;
+      color: var(--sandstone-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16mm 18mm 15mm;
+    }
+
+    /* Top Minimal Header */
+    .top-strip {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.35mm solid rgba(179, 147, 106, 0.35);
+      padding-bottom: 3.5mm;
+    }
+    .top-strip .brand {
+      font-family: var(--font-display);
+      font-size: 18pt;
+      letter-spacing: 0.34em;
+      color: var(--gold);
+    }
+    .top-strip .loc {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+    }
+
+    /* Monumental Stacked Years + Floating Jewel Dish */
+    .stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 4mm 0;
+    }
+
+    .year-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-bottom: 0.3mm solid rgba(197, 179, 161, 0.16);
+      padding: 3.5mm 0 4.5mm;
+      width: 102mm;
+    }
+    .year-row:last-of-type {
+      border-bottom: none;
+    }
+    .year-num {
+      font-family: var(--font-display);
+      font-size: 82pt;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      color: rgba(245, 241, 237, 0.18);
+      user-select: none;
+    }
+    .year-num.lit {
+      color: var(--sandstone-light);
+    }
+    .year-label {
+      margin-top: 2mm;
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* High-temperature jewel-like dish card */
+    .jewel-frame {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 150mm;
+      height: 196mm;
+      border: 0.6mm solid var(--gold);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+      z-index: 2;
+      background: #141210;
+    }
+    .jewel-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .jewel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6mm 6mm 5mm;
+      background: linear-gradient(to top, rgba(14, 13, 12, 0.94) 0%, rgba(14, 13, 12, 0) 100%);
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-hover);
+    }
+
+    /* Punchy Bottom Callout */
+    .bottom-block {
+      position: relative;
+      z-index: 3;
+      border-top: 0.35mm solid rgba(179, 147, 106, 0.45);
+      padding-top: 6mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8mm;
+    }
+    .bottom-hook h1 {
+      font-family: var(--font-display);
+      font-size: 36pt;
+      line-height: 0.98;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .bottom-hook h1 span {
+      color: var(--gold-hover);
+    }
+    .bottom-hook p {
+      margin-top: 2.5mm;
+      font-family: var(--font-editorial);
+      font-size: 14.5pt;
+      color: var(--sandstone);
+    }
+
+    .qr-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+      flex-shrink: 0;
+    }
+    .qr-wrap .txt {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .qr-wrap .txt .url {
+      font-size: 10.5pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .qr-wrap .txt .ig {
+      font-size: 8.5pt;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-top: 1mm;
+    }
+    .qr-wrap .qr {
+      width: 21mm;
+      height: 21mm;
+      padding: 1.3mm;
+      border: 0.35mm solid rgba(179, 147, 106, 0.5);
+      background: #0e0d0c;
+    }
+    .qr-wrap .qr img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-11">
+    <header class="top-strip">
+      <div class="brand">EPOCHURIAN</div>
+      <div class="loc">Private Banquets · London</div>
+    </header>
+
+    <main class="stage">
+      <div class="year-row">
+        <div class="year-num">1066</div>
+        <div class="year-label">Normandy</div>
+      </div>
+      <div class="year-row">
+        <div class="year-num">1420</div>
+        <div class="year-label">Florence</div>
+      </div>
+      <div class="year-row">
+        <div class="year-num">1519</div>
+        <div class="year-label">Tenochtitlan</div>
+      </div>
+      <div class="year-row">
+        <div class="year-num lit">1840</div>
+        <div class="year-label">St. Petersburg</div>
+      </div>
+
+      <div class="jewel-frame">
+        <img src="assets/images/russian-tsarist-feast.webp" alt="Imperial poached plum with burnt sugar shards on gold cloth">
+        <div class="jewel-caption">Tsarist Finale · Poached Plum &amp; Burnt Sugar</div>
+      </div>
+    </main>
+
+    <footer class="bottom-block">
+      <div class="bottom-hook">
+        <h1>Pick a Century.<br><span>We’ll Set the Table.</span></h1>
+        <p>Live historical tasting banquets in your London home or our N10 garden.</p>
+      </div>
+      <div class="qr-wrap">
+        <div class="txt">
+          <div class="url">epochurian.com</div>
+          <div class="ig">@epochurian</div>
+        </div>
+        <div class="qr">
+          <img src="assets/qr-web-gold.svg" alt="Scan for epochurian.com">
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

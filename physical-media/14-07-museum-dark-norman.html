@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 14 (07 Upgraded: British Museum Dark)</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-14 {
+      background: #0c0b0a;
+      color: var(--sandstone-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15mm 17mm 14mm;
+    }
+
+    .museum-frame {
+      position: absolute;
+      inset: 7.5mm;
+      border: 0.45mm solid rgba(179, 147, 106, 0.38);
+      pointer-events: none;
+    }
+
+    /* Header */
+    .exhibition-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.4mm solid rgba(179, 147, 106, 0.45);
+      padding-bottom: 3.5mm;
+    }
+    .exhibition-kicker {
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .exhibition-venue {
+      font-family: var(--font-sans);
+      font-size: 12.5pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+    }
+
+    /* Monumental Exhibition Title */
+    .title-block {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 5mm;
+      margin-bottom: 4.5mm;
+    }
+    .title-block .epoch-tag {
+      font-family: var(--font-display);
+      font-size: 26pt;
+      letter-spacing: 0.34em;
+      color: var(--gold);
+      margin-bottom: 2mm;
+      padding-left: 0.34em;
+    }
+    .title-block h1 {
+      font-family: var(--font-display);
+      font-size: 74pt;
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .title-block .subtitle {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 21pt;
+      color: var(--sandstone);
+      margin-top: 3mm;
+    }
+
+    /* Center Hero Artwork + Larger Exhibit Caption */
+    .artwork-wrap {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      min-height: 0;
+      margin: 2mm 0 5.5mm;
+      border: 0.45mm solid rgba(179, 147, 106, 0.45);
+      overflow: hidden;
+      background: #141210;
+    }
+    .artwork-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+    }
+    .artwork-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(12, 11, 10, 0.18) 0%,
+        rgba(12, 11, 10, 0) 20%,
+        rgba(12, 11, 10, 0) 70%,
+        rgba(12, 11, 10, 0.86) 100%
+      );
+      pointer-events: none;
+    }
+    .placard-caption {
+      position: absolute;
+      bottom: 4.5mm;
+      left: 6mm;
+      right: 6mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+
+    /* Bottom Footer — 2m Signage Scale */
+    .exhibition-footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 0.4mm solid rgba(179, 147, 106, 0.45);
+      padding-top: 5mm;
+      gap: 7mm;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+    .footer-headline {
+      font-family: var(--font-editorial);
+      font-size: 22pt;
+      font-weight: 500;
+      color: var(--sandstone-light);
+      line-height: 1.15;
+    }
+    .footer-meta {
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+      flex-shrink: 0;
+    }
+    .qr-box {
+      width: 30mm;
+      height: 30mm;
+      padding: 1.8mm;
+      border: 0.4mm solid rgba(179, 147, 106, 0.55);
+      background: #0c0b0a;
+    }
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-text {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .qr-text .url {
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .qr-text .ig {
+      font-size: 14pt;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-top: 1.5mm;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-14">
+    <div class="museum-frame"></div>
+
+    <header class="exhibition-header">
+      <div class="exhibition-kicker">Special Exhibition</div>
+      <div class="exhibition-venue">London · Private Dining</div>
+    </header>
+
+    <section class="title-block">
+      <div class="epoch-tag">EPOCHURIAN</div>
+      <h1>Taste History</h1>
+      <div class="subtitle">Historical banquets staged at your own table.</div>
+    </section>
+
+    <div class="artwork-wrap">
+      <img src="assets/images/norman-dessert-table.webp" alt="Norman banquet duck leg with ruby wine jus over Bayeux Tapestry">
+      <div class="artwork-vignette"></div>
+      <div class="placard-caption">
+        <span>Exhibit I · Normandy, 1066</span>
+        <span>Spit-Roasted Duck · Spiced Wine Jus</span>
+      </div>
+    </div>
+
+    <footer class="exhibition-footer">
+      <div class="footer-left">
+        <div class="footer-headline">An exhibition you don’t just look at — you eat.</div>
+        <div class="footer-meta">1066 Normandy &nbsp;·&nbsp; 1420 Florence &nbsp;·&nbsp; 1840 St. Petersburg</div>
+      </div>
+      <div class="footer-right">
+        <div class="qr-text">
+          <div class="url">epochurian.com</div>
+          <div class="ig">@epochurian</div>
+        </div>
+        <div class="qr-box">
+          <img src="assets/qr-web-gold.svg" alt="Scan to visit epochurian.com">
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

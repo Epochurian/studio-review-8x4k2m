@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 07 British Museum Dark</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-07 {
+      background: #0c0b0a;
+      color: var(--sandstone-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18mm 18mm 15mm;
+    }
+
+    /* Subtle museum double-hairline border */
+    .museum-frame {
+      position: absolute;
+      inset: 9mm;
+      border: 0.4mm solid rgba(179, 147, 106, 0.35);
+      pointer-events: none;
+    }
+
+    /* Top exhibition header bar */
+    .exhibition-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 0.35mm solid rgba(179, 147, 106, 0.45);
+      padding-bottom: 4.5mm;
+    }
+    .exhibition-kicker {
+      font-family: var(--font-sans);
+      font-size: 9pt;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .exhibition-venue {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Monumental Exhibition Title */
+    .title-block {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 7mm;
+      margin-bottom: 6mm;
+    }
+    .title-block .epoch-tag {
+      font-family: var(--font-display);
+      font-size: 22pt;
+      letter-spacing: 0.38em;
+      color: var(--gold);
+      margin-bottom: 3mm;
+    }
+    .title-block h1 {
+      font-family: var(--font-display);
+      font-size: 62pt;
+      line-height: 0.94;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .title-block .subtitle {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 16pt;
+      letter-spacing: 0.03em;
+      color: var(--sandstone);
+      margin-top: 4mm;
+    }
+
+    /* Center Hero Artwork */
+    .artwork-wrap {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      margin: 2mm 0 7mm;
+      border: 0.4mm solid rgba(179, 147, 106, 0.4);
+      overflow: hidden;
+      background: #141210;
+    }
+    .artwork-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+    }
+    .artwork-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(12, 11, 10, 0.25) 0%,
+        rgba(12, 11, 10, 0) 18%,
+        rgba(12, 11, 10, 0) 76%,
+        rgba(12, 11, 10, 0.72) 100%
+      );
+      pointer-events: none;
+    }
+    .placard-caption {
+      position: absolute;
+      bottom: 4.5mm;
+      left: 6mm;
+      right: 6mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: 8pt;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+    }
+
+    /* Bottom British Museum Exhibition Footer */
+    .exhibition-footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 0.35mm solid rgba(179, 147, 106, 0.45);
+      padding-top: 5.5mm;
+      gap: 8mm;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+    }
+    .footer-headline {
+      font-family: var(--font-editorial);
+      font-size: 16pt;
+      font-weight: 500;
+      color: var(--sandstone-light);
+      letter-spacing: 0.01em;
+    }
+    .footer-meta {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 5mm;
+      flex-shrink: 0;
+    }
+    .qr-box {
+      width: 22mm;
+      height: 22mm;
+      padding: 1.5mm;
+      border: 0.35mm solid rgba(179, 147, 106, 0.5);
+      background: #0c0b0a;
+    }
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .qr-text {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .qr-text .url {
+      font-size: 10.5pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .qr-text .ig {
+      font-size: 8.5pt;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-top: 1.2mm;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-07">
+    <div class="museum-frame"></div>
+
+    <header class="exhibition-header">
+      <div class="exhibition-kicker">Special Exhibition · Private Commissions</div>
+      <div class="exhibition-venue">London · Private Residences &amp; N10</div>
+    </header>
+
+    <section class="title-block">
+      <div class="epoch-tag">EPOCHURIAN</div>
+      <h1>Taste History</h1>
+      <div class="subtitle">Multi-course historical banquets staged at your own table.</div>
+    </section>
+
+    <div class="artwork-wrap">
+      <img src="assets/images/norman-dessert-table.webp" alt="Norman banquet duck leg with ruby wine jus over Bayeux Tapestry">
+      <div class="artwork-vignette"></div>
+      <div class="placard-caption">
+        <span>Exhibit I · The Norman Conquest, 1066</span>
+        <span>Spit-Roasted Duck · Spiced Wine Jus</span>
+      </div>
+    </div>
+
+    <footer class="exhibition-footer">
+      <div class="footer-left">
+        <div class="footer-headline">An exhibition you don’t just look at — you eat.</div>
+        <div class="footer-meta">1066 Normandy &nbsp;·&nbsp; 1420 Florence &nbsp;·&nbsp; 1840 St. Petersburg</div>
+      </div>
+      <div class="footer-right">
+        <div class="qr-text">
+          <div class="url">epochurian.com</div>
+          <div class="ig">@epochurian</div>
+        </div>
+        <div class="qr-box">
+          <img src="assets/qr-web-gold.svg" alt="Scan to visit epochurian.com">
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

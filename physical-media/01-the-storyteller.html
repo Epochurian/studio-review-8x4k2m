@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Epochurian — Poster 01: The Storyteller</title>
+<link rel="stylesheet" href="assets/brand.css">
+<style>
+.poster-01 {
+    padding: 16mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: radial-gradient(circle at 50% 0%, #1c1916 0%, #0e0d0c 65%);
+}
+.outer-frame {
+    border: 1px solid rgba(179, 147, 106, 0.32);
+    height: 100%;
+    padding: 12mm 13mm 11mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 7.5pt;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 7mm;
+}
+.photo-stage {
+    position: relative;
+    width: 100%;
+    height: 128mm;
+    overflow: hidden;
+    border: 1px solid rgba(179, 147, 106, 0.28);
+    margin-bottom: 10mm;
+}
+.photo-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    filter: contrast(1.06) saturate(0.95);
+}
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10mm 6mm 4mm;
+    background: linear-gradient(to top, rgba(14, 13, 12, 0.88), transparent);
+    font-family: var(--font-sans);
+    font-size: 7pt;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sandstone);
+    display: flex;
+    justify-content: space-between;
+}
+.headline-block {
+    text-align: center;
+    margin-bottom: 9mm;
+    padding-bottom: 8mm;
+    border-bottom: 1px solid rgba(179, 147, 106, 0.22);
+}
+.headline-block h1 {
+    font-family: var(--font-heading);
+    font-size: 27pt;
+    line-height: 1.18;
+    letter-spacing: 0.06em;
+    color: var(--sandstone-light);
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 3.5mm;
+}
+.headline-sub {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 13pt;
+    color: var(--sandstone);
+    letter-spacing: 0.02em;
+}
+.editorial-columns {
+    column-count: 3;
+    column-gap: 9mm;
+    column-rule: 1px solid rgba(179, 147, 106, 0.16);
+    font-family: var(--font-body);
+    font-size: 9.6pt;
+    line-height: 1.62;
+    color: var(--text-main);
+    text-align: justify;
+    margin-bottom: 9mm;
+}
+.editorial-columns p {
+    margin-bottom: 3.5mm;
+}
+.dropcap::first-letter {
+    font-family: var(--font-heading);
+    font-size: 30pt;
+    float: left;
+    line-height: 0.82;
+    padding-right: 2.5mm;
+    padding-top: 1.5mm;
+    color: var(--gold);
+}
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 7mm;
+    border-top: 1px solid rgba(179, 147, 106, 0.28);
+}
+.brand-lockup .wordmark {
+    font-family: var(--font-heading);
+    font-size: 22pt;
+    letter-spacing: 0.16em;
+    color: var(--sandstone-light);
+    line-height: 1;
+}
+.brand-lockup .tagline {
+    font-family: var(--font-tagline);
+    font-size: 14pt;
+    color: var(--gold);
+    margin-top: 1.5mm;
+}
+.contact-strip {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 7.5pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sandstone);
+    line-height: 1.85;
+}
+.contact-strip strong {
+    color: var(--sandstone-light);
+    font-weight: 500;
+}
+.qr-block {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+}
+.qr-text {
+    text-align: right;
+    font-family: var(--font-sans);
+    font-size: 7pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+.qr-text span {
+    display: block;
+    color: var(--gold);
+    font-weight: 500;
+}
+.qr-box {
+    width: 21mm;
+    height: 21mm;
+    padding: 1.5mm;
+    border: 1px solid rgba(179, 147, 106, 0.4);
+    background: rgba(20, 18, 16, 0.9);
+}
+.qr-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="poster poster-01">
+    <div class="outer-frame">
+        <div>
+            <div class="top-meta">
+                <span>London &amp; Private Residences</span>
+                <span>Private Historical Dining</span>
+                <span>Est. N10</span>
+            </div>
+
+            <div class="photo-stage">
+                <img src="assets/images/3_night_aligned.jpg" alt="Candlelit historical banquet in a London garden">
+                <div class="photo-caption">
+                    <span>An Evening Feast — North London</span>
+                    <span>By Candlelight &amp; Commission</span>
+                </div>
+            </div>
+
+            <div class="headline-block">
+                <h1>At 11:42 PM, Nobody Had<br>Checked Their Phone.</h1>
+                <div class="headline-sub">On the quiet art of dining across centuries, in your own home.</div>
+            </div>
+
+            <div class="editorial-columns">
+                <p class="dropcap">Restaurants are built on turnaround times. Tables must be cleared in two hours, the room is loud enough to swallow conversation, and the evening ends the moment a card machine arrives at your elbow.</p>
+                <p>Epochurian began with a different premise: that the finest dining room in London is already yours—if only someone would bring a lost century to your table.</p>
+                <p>We research, source, and cook multi-course historical banquets inside private homes. From 12th-century Levantine spice routes at the Court of Saladin, to 15th-century Ming imperial courts, to the gilded tables of 19th-century Tsarist Russia, every dish is reconstructed from archival recipes and balanced for modern culinary excellence.</p>
+                <p>We arrive discreetly with heirloom ingredients, period tableware, and an unhurried pace. As each course is served, we share the stories, forgotten techniques, and histories behind what is on your plate—then step back and let the night belong to your guests.</p>
+                <p>For smaller gatherings, our private garden venue in North London (N10) also opens for a limited number of seasonal commissions each year.</p>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <div class="brand-lockup">
+                <div class="wordmark">EPOCHURIAN</div>
+                <div class="tagline">Taste History</div>
+            </div>
+
+            <div class="contact-strip">
+                <strong>epochurian.com</strong><br>
+                Instagram <strong>@epochurian</strong><br>
+                info@epochurian.com
+            </div>
+
+            <div class="qr-block">
+                <div class="qr-text">
+                    <span>Explore Menus</span>
+                    Scan to view<br>past banquets
+                </div>
+                <div class="qr-box">
+                    <img src="assets/qr-web-gold.svg" alt="QR Code to epochurian.com">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+@font-face {
+    font-family: 'Quinsi';
+    src: url('fonts/QuinsiRegular.woff2') format('woff2'),
+         url('fonts/QuinsiRegular.woff') format('woff'),
+         url('fonts/QuinsiRegular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aotten';
+    src: url('fonts/AottenRegular.woff2') format('woff2'),
+         url('fonts/AottenRegular.woff') format('woff'),
+         url('fonts/AottenRegular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bodoni Moda';
+    src: url('fonts/BodoniModa-VariableFont_opsz,wght.woff2') format('woff2');
+    font-weight: 300 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bodoni Moda';
+    src: url('fonts/BodoniModa-Italic-VariableFont_opsz,wght.woff2') format('woff2');
+    font-weight: 300 900;
+    font-style: italic;
+}
+
+:root {
+    --bg-primary: #0e0d0c;
+    --bg-secondary: #141210;
+    --bg-card: #181614;
+    --sandstone: #c5b3a1;
+    --sandstone-light: #f5f1ed;
+    --gold: #b3936a;
+    --gold-hover: #d4af7f;
+    --text-main: #e8e4e1;
+    --text-muted: #9c948e;
+    --border-color: rgba(181, 149, 107, 0.25);
+
+    --font-heading: 'Quinsi', serif;
+    --font-tagline: 'Aotten', serif;
+    --font-body: 'Bodoni Moda', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+@page {
+    size: A3 portrait;
+    margin: 0;
+}
+
+html, body {
+    background: #1f1d1b;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px 0;
+}
+
+.poster {
+    width: 297mm;
+    height: 420mm;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
+}
+
+@media print {
+    html, body {
+        background: none;
+        padding: 0;
+        display: block;
+    }
+    .poster {
+        box-shadow: none;
+        page-break-after: avoid;
+    }
+}

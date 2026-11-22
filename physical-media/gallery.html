@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — A3 Poster Gallery</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      display: block;
+      background: #0b0a09;
+      color: var(--sandstone-light);
+      padding: 14px 20px 28px;
+      font-family: var(--font-sans);
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(179, 147, 106, 0.25);
+    }
+    .topbar-left {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .topbar h1 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+    }
+    .topbar .hint {
+      font-size: 11px;
+      color: var(--sandstone);
+      opacity: 0.8;
+    }
+    .filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(179, 147, 106, 0.35);
+      color: var(--sandstone-light);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: var(--gold);
+      color: #0e0d0c;
+      border-color: var(--gold);
+    }
+    .section-group.hidden {
+      display: none;
+    }
+    .section-title {
+      margin: 16px 0 8px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-left: 2px solid var(--gold);
+      padding-left: 8px;
+    }
+    .section-group:first-of-type .section-title {
+      margin-top: 4px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 10px;
+    }
+    .card {
+      background: #141210;
+      border: 1px solid rgba(179, 147, 106, 0.22);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.12s ease;
+    }
+    .card:hover {
+      border-color: var(--gold);
+    }
+    .thumb-wrap {
+      aspect-ratio: 297 / 420;
+      background: #080706;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(179, 147, 106, 0.16);
+    }
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-wrap.landscape img {
+      object-fit: contain;
+    }
+    .card-bar {
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--sandstone-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-label span {
+      color: var(--gold);
+      margin-right: 4px;
+    }
+    .actions {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .btn {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 3px 5px;
+      border: 1px solid rgba(179, 147, 106, 0.35);
+      color: var(--sandstone-light);
+    }
+    .btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .btn.primary {
+      background: var(--gold);
+      color: #0e0d0c;
+      border-color: var(--gold);
+    }
+    .btn.primary:hover {
+      opacity: 0.85;
+      color: #0e0d0c;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1>EPOCHURIAN</h1>
+      <span class="hint">Click or ⌘-click any poster to open full-res PNG · PDF &amp; HTML links below each</span>
+    </div>
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All (28)</button>
+      <button class="filter-btn" data-filter="iter3">Iter 3 · Signage (16)</button>
+      <button class="filter-btn" data-filter="iter2">Iter 2 (6)</button>
+      <button class="filter-btn" data-filter="iter1">Iter 1 (6)</button>
+    </div>
+  </header>
+
+  <div class="section-group" data-group="iter3">
+    <h2 class="section-title">Iteration 3 · 2-Metre Signage (13–28)</h2>
+    <section class="grid">
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/13-02-gallery-norman.png" target="_blank" title="13 · 02 Light Gallery (Norman)">
+          <img src="rendered/png/13-02-gallery-norman.png" alt="13 Gallery Norman">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="13 · 02 Light Gallery (Norman)"><span>13</span>02 Norman</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/13-02-gallery-norman.pdf" target="_blank">PDF</a>
+            <a class="btn" href="13-02-gallery-norman.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/14-07-museum-dark-norman.png" target="_blank" title="14 · 07 Museum Dark (Norman)">
+          <img src="rendered/png/14-07-museum-dark-norman.png" alt="14 Museum Dark Norman">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="14 · 07 Museum Dark (Norman)"><span>14</span>07 Dark</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/14-07-museum-dark-norman.pdf" target="_blank">PDF</a>
+            <a class="btn" href="14-07-museum-dark-norman.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/15-08-museum-light-aztec.png" target="_blank" title="15 · 08 Museum Light (Aztec)">
+          <img src="rendered/png/15-08-museum-light-aztec.png" alt="15 Museum Light Aztec">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="15 · 08 Museum Light (Aztec)"><span>15</span>08 Aztec</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/15-08-museum-light-aztec.pdf" target="_blank">PDF</a>
+            <a class="btn" href="15-08-museum-light-aztec.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/16-08-museum-light-russia.png" target="_blank" title="16 · 08 Museum Light (Russia)">
+          <img src="rendered/png/16-08-museum-light-russia.png" alt="16 Museum Light Russia">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="16 · 08 Museum Light (Russia)"><span>16</span>08 Russia</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/16-08-museum-light-russia.pdf" target="_blank">PDF</a>
+            <a class="btn" href="16-08-museum-light-russia.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/17-11a-dark-square.png" target="_blank" title="17 · 11A Dark Square">
+          <img src="rendered/png/17-11a-dark-square.png" alt="17 Dark Square">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="17 · 11A Dark Square"><span>17</span>11A Dark Sq</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/17-11a-dark-square.pdf" target="_blank">PDF</a>
+            <a class="btn" href="17-11a-dark-square.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/18-11b-light-square.png" target="_blank" title="18 · 11B Light Square">
+          <img src="rendered/png/18-11b-light-square.png" alt="18 Light Square">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="18 · 11B Light Square"><span>18</span>11B Light Sq</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/18-11b-light-square.pdf" target="_blank">PDF</a>
+            <a class="btn" href="18-11b-light-square.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/19-11c-light-carousel.png" target="_blank" title="19 · 11C Light Carousel">
+          <img src="rendered/png/19-11c-light-carousel.png" alt="19 Light Carousel">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="19 · 11C Light Carousel"><span>19</span>11C Carousel</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/19-11c-light-carousel.pdf" target="_blank">PDF</a>
+            <a class="btn" href="19-11c-light-carousel.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap landscape" href="rendered/png/20-11d-dark-landscape.png" target="_blank" title="20 · 11D Dark Landscape">
+          <img src="rendered/png/20-11d-dark-landscape.png" alt="20 Dark Landscape">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="20 · 11D Dark Landscape"><span>20</span>11D Landscp</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/20-11d-dark-landscape.pdf" target="_blank">PDF</a>
+            <a class="btn" href="20-11d-dark-landscape.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/21-02-gallery-saladin.png" target="_blank" title="21 · 02 Gallery (Saladin)">
+          <img src="rendered/png/21-02-gallery-saladin.png" alt="21 Gallery Saladin">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="21 · 02 Gallery (Saladin)"><span>21</span>02 Saladin</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/21-02-gallery-saladin.pdf" target="_blank">PDF</a>
+            <a class="btn" href="21-02-gallery-saladin.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/22-07-museum-dark-saladin.png" target="_blank" title="22 · 07 Museum Dark (Saladin)">
+          <img src="rendered/png/22-07-museum-dark-saladin.png" alt="22 Museum Dark Saladin">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="22 · 07 Museum Dark (Saladin)"><span>22</span>07 Saladin</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/22-07-museum-dark-saladin.pdf" target="_blank">PDF</a>
+            <a class="btn" href="22-07-museum-dark-saladin.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/23-08-museum-light-saladin.png" target="_blank" title="23 · 08 Museum Light (Saladin)">
+          <img src="rendered/png/23-08-museum-light-saladin.png" alt="23 Museum Light Saladin">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="23 · 08 Museum Light (Saladin)"><span>23</span>08 Saladin</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/23-08-museum-light-saladin.pdf" target="_blank">PDF</a>
+            <a class="btn" href="23-08-museum-light-saladin.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/24-11-dark-square-saladin.png" target="_blank" title="24 · 11 Dark Square (Saladin)">
+          <img src="rendered/png/24-11-dark-square-saladin.png" alt="24 Dark Square Saladin">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="24 · 11 Dark Square (Saladin)"><span>24</span>11 Saladin</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/24-11-dark-square-saladin.pdf" target="_blank">PDF</a>
+            <a class="btn" href="24-11-dark-square-saladin.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/25-02-gallery-dark-norman.png" target="_blank" title="25 · 02 Dark Gallery (Norman)">
+          <img src="rendered/png/25-02-gallery-dark-norman.png" alt="25 Gallery Dark Norman">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="25 · 02 Dark Gallery (Norman)"><span>25</span>02 Dark</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/25-02-gallery-dark-norman.pdf" target="_blank">PDF</a>
+            <a class="btn" href="25-02-gallery-dark-norman.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/26-08-museum-dark-aztec.png" target="_blank" title="26 · 08 Museum Dark (Aztec — Exhibition)">
+          <img src="rendered/png/26-08-museum-dark-aztec.png" alt="26 Museum Dark Aztec">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="26 · 08 Museum Dark (Aztec — Exhibition)"><span>26</span>08 Dark</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/26-08-museum-dark-aztec.pdf" target="_blank">PDF</a>
+            <a class="btn" href="26-08-museum-dark-aztec.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/27-08-museum-dark-aztec-timemachine.png" target="_blank" title="27 · 08 Museum Dark (Aztec — Time Machine)">
+          <img src="rendered/png/27-08-museum-dark-aztec-timemachine.png" alt="27 Museum Dark Aztec Time Machine">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="27 · 08 Museum Dark (Aztec — Time Machine)"><span>27</span>08 Time</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/27-08-museum-dark-aztec-timemachine.pdf" target="_blank">PDF</a>
+            <a class="btn" href="27-08-museum-dark-aztec-timemachine.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/28-08-museum-dark-aztec-restaurants.png" target="_blank" title="28 · 08 Museum Dark (Aztec — Restaurants)">
+          <img src="rendered/png/28-08-museum-dark-aztec-restaurants.png" alt="28 Museum Dark Aztec Restaurants">
+        </a>
+        <div class="card-bar">
+          <div class="card-label" title="28 · 08 Museum Dark (Aztec — Restaurants)"><span>28</span>08 1191</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/28-08-museum-dark-aztec-restaurants.pdf" target="_blank">PDF</a>
+            <a class="btn" href="28-08-museum-dark-aztec-restaurants.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="section-group" data-group="iter2">
+    <h2 class="section-title">Iteration 2 (07–12)</h2>
+    <section class="grid">
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/07-british-museum-dark.png" target="_blank" title="07 · British Museum Dark">
+          <img src="rendered/png/07-british-museum-dark.png" alt="07 British Museum Dark">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>07</span>BM Dark</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/07-british-museum-dark.pdf" target="_blank">PDF</a>
+            <a class="btn" href="07-british-museum-dark.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/08-british-museum-limestone.png" target="_blank" title="08 · British Museum Limestone">
+          <img src="rendered/png/08-british-museum-limestone.png" alt="08 British Museum Limestone">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>08</span>BM Light</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/08-british-museum-limestone.pdf" target="_blank">PDF</a>
+            <a class="btn" href="08-british-museum-limestone.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/09-two-hours-contrast.png" target="_blank" title="09 · Restaurant Contrast">
+          <img src="rendered/png/09-two-hours-contrast.png" alt="09 Two Hours Contrast">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>09</span>2 Hours</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/09-two-hours-contrast.pdf" target="_blank">PDF</a>
+            <a class="btn" href="09-two-hours-contrast.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/10-editorial-bw-chef.png" target="_blank" title="10 · B&W Monograph Atelier">
+          <img src="rendered/png/10-editorial-bw-chef.png" alt="10 Haute Couture B&W Atelier">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>10</span>B&amp;W Chef</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/10-editorial-bw-chef.pdf" target="_blank">PDF</a>
+            <a class="btn" href="10-editorial-bw-chef.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/11-artifact-typography.png" target="_blank" title="11 · Swiss Meets Antiquity">
+          <img src="rendered/png/11-artifact-typography.png" alt="11 Monumental Years">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>11</span>Years</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/11-artifact-typography.pdf" target="_blank">PDF</a>
+            <a class="btn" href="11-artifact-typography.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/12-crimson-velvet-invitation.png" target="_blank" title="12 · Royal Command Playbill">
+          <img src="rendered/png/12-crimson-velvet-invitation.png" alt="12 Crimson Royal Playbill">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>12</span>Playbill</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/12-crimson-velvet-invitation.pdf" target="_blank">PDF</a>
+            <a class="btn" href="12-crimson-velvet-invitation.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="section-group" data-group="iter1">
+    <h2 class="section-title">Iteration 1 · Archive (01–06)</h2>
+    <section class="grid">
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/01-the-storyteller.png" target="_blank" title="01 · The Storyteller">
+          <img src="rendered/png/01-the-storyteller.png" alt="01 The Storyteller">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>01</span>Storyteller</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/01-the-storyteller.pdf" target="_blank">PDF</a>
+            <a class="btn" href="01-the-storyteller.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/02-the-exhibition.png" target="_blank" title="02 · The Exhibition">
+          <img src="rendered/png/02-the-exhibition.png" alt="02 The Exhibition">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>02</span>Exhibition</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/02-the-exhibition.pdf" target="_blank">PDF</a>
+            <a class="btn" href="02-the-exhibition.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/03-the-specimen.png" target="_blank" title="03 · The Specimen">
+          <img src="rendered/png/03-the-specimen.png" alt="03 The Specimen">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>03</span>Specimen</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/03-the-specimen.pdf" target="_blank">PDF</a>
+            <a class="btn" href="03-the-specimen.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/04-the-manifesto.png" target="_blank" title="04 · The Manifesto">
+          <img src="rendered/png/04-the-manifesto.png" alt="04 The Manifesto">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>04</span>Manifesto</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/04-the-manifesto.pdf" target="_blank">PDF</a>
+            <a class="btn" href="04-the-manifesto.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/05-the-whisper.png" target="_blank" title="05 · The Whisper">
+          <img src="rendered/png/05-the-whisper.png" alt="05 The Whisper">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>05</span>Whisper</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/05-the-whisper.pdf" target="_blank">PDF</a>
+            <a class="btn" href="05-the-whisper.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb-wrap" href="rendered/png/06-the-time-menu.png" target="_blank" title="06 · The Time Menu">
+          <img src="rendered/png/06-the-time-menu.png" alt="06 The Time Menu">
+        </a>
+        <div class="card-bar">
+          <div class="card-label"><span>06</span>Time Menu</div>
+          <div class="actions">
+            <a class="btn primary" href="rendered/pdf/06-the-time-menu.pdf" target="_blank">PDF</a>
+            <a class="btn" href="06-the-time-menu.html" target="_blank">HTML</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const groups = document.querySelectorAll('.section-group');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        groups.forEach(g => {
+          g.classList.toggle('hidden', f !== 'all' && g.dataset.group !== f);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

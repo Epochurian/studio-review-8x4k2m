@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 09 Two Hours Contrast</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-09 {
+      background: #0b0a09;
+      color: var(--sandstone-light);
+    }
+
+    /* Full-bleed showy food photograph */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+    }
+
+    /* Deep dramatic gradient so typography pops effortlessly in 2 seconds */
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 9, 8, 0.72) 0%,
+        rgba(10, 9, 8, 0.18) 28%,
+        rgba(10, 9, 8, 0.30) 48%,
+        rgba(10, 9, 8, 0.88) 73%,
+        rgba(10, 9, 8, 0.96) 100%
+      );
+    }
+
+    .content-layer {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18mm 20mm 16mm;
+    }
+
+    /* Minimal Top Brand Lockup */
+    .top-brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-brand .logo {
+      font-family: var(--font-display);
+      font-size: 20pt;
+      letter-spacing: 0.36em;
+      color: var(--sandstone-light);
+    }
+    .top-brand .tag {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 0.35mm solid rgba(179, 147, 106, 0.55);
+      padding: 2mm 4mm;
+    }
+
+    /* Lower-Third Winning Copy — 2-Second Read */
+    .statement-block {
+      margin-top: auto;
+      padding-bottom: 9mm;
+      border-bottom: 0.35mm solid rgba(179, 147, 106, 0.45);
+    }
+    .contrast-muted {
+      font-family: var(--font-editorial);
+      font-size: 25pt;
+      line-height: 1.24;
+      color: rgba(232, 228, 225, 0.78);
+      margin-bottom: 6mm;
+    }
+    .contrast-hero {
+      font-family: var(--font-display);
+      font-size: 37pt;
+      line-height: 1.04;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .contrast-hero .gold {
+      color: var(--gold-hover);
+    }
+
+    /* Crisp Footer */
+    .footer-row {
+      padding-top: 6mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-left .script {
+      font-family: var(--font-script);
+      font-size: 24pt;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .footer-left .sub {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sandstone);
+      margin-top: 1.5mm;
+    }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+    }
+    .footer-right .cta-text {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .footer-right .cta-text .domain {
+      font-size: 11pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sandstone-light);
+    }
+    .footer-right .cta-text .ig {
+      font-size: 8.5pt;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-top: 1mm;
+    }
+    .footer-right .qr {
+      width: 21mm;
+      height: 21mm;
+      padding: 1.4mm;
+      border: 0.35mm solid rgba(179, 147, 106, 0.5);
+      background: rgba(11, 10, 9, 0.85);
+    }
+    .footer-right .qr img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-09">
+    <img class="hero-photo" src="assets/images/norman-duck-main.webp" alt="Crispy duck leg with ruby wine jus">
+    <div class="hero-scrim"></div>
+
+    <div class="content-layer">
+      <header class="top-brand">
+        <div class="logo">EPOCHURIAN</div>
+        <div class="tag">London Private Dining</div>
+      </header>
+
+      <section class="statement-block">
+        <p class="contrast-muted">
+          Restaurants give you two hours,<br>
+          a loud room, and a bill.
+        </p>
+        <h1 class="contrast-hero">
+          We give you<br>
+          <span class="gold">1840 St. Petersburg</span><br>
+          at your own table.
+        </h1>
+      </section>
+
+      <footer class="footer-row">
+        <div class="footer-left">
+          <div class="script">Taste History</div>
+          <div class="sub">Private Residences &amp; N10 Garden</div>
+        </div>
+        <div class="footer-right">
+          <div class="cta-text">
+            <div class="domain">epochurian.com</div>
+            <div class="ig">@epochurian</div>
+          </div>
+          <div class="qr">
+            <img src="assets/qr-web-gold.svg" alt="Scan to visit epochurian.com">
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

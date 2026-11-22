@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet Gallery (All 12 Drafts)</title>
+  <link rel="stylesheet" href="../assets/brand.css">
+  <style>
+    html, body {
+      width: auto;
+      height: auto;
+      margin: 0;
+      background: #0e0d0c;
+      color: var(--sandstone-light);
+      font-family: var(--font-sans);
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(14, 13, 12, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(181, 149, 107, 0.28);
+      padding: 12px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .topbar h1 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      color: var(--sandstone-light);
+    }
+    .hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 12px;
+    }
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(181, 149, 107, 0.35);
+      color: var(--sandstone);
+      padding: 6px 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--gold);
+      color: #0e0d0c;
+      border-color: var(--gold);
+    }
+    .container { padding: 18px 22px 48px; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 18px 0 12px;
+      border-bottom: 1px solid rgba(181, 149, 107, 0.2);
+      padding-bottom: 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #141210;
+      border: 1px solid rgba(181, 149, 107, 0.25);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .preview-frame {
+      position: relative;
+      width: 100%;
+      height: 540px;
+      background: #1a1816;
+      overflow: hidden;
+    }
+    .preview-frame iframe {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1180px;
+      height: 1750px;
+      border: 0;
+      transform: translateX(-50%) scale(0.32);
+      transform-origin: top center;
+      pointer-events: none;
+    }
+    .card-bar {
+      padding: 10px 12px;
+      border-top: 1px solid rgba(181, 149, 107, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sandstone-light);
+    }
+    .card-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .btn {
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--gold);
+      color: #0e0d0c;
+      text-decoration: none;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: 0.85; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div style="display:flex; align-items:baseline; flex-wrap:wrap;">
+      <h1>EPOCHURIAN · LEAFLETS</h1>
+      <span class="hint">Live side-by-side preview of both A4 sheets · Click Open to inspect full size or Print → PDF</span>
+    </div>
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All (18)</button>
+      <button class="filter-btn" data-filter="iter3">Iter 3 · Best-Practice (6)</button>
+      <button class="filter-btn" data-filter="tight">Iter 2 · Tight (3)</button>
+      <button class="filter-btn" data-filter="creative">Iter 2 · Creative (3)</button>
+      <button class="filter-btn" data-filter="iter1">Iter 1 (6)</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="group" data-group="iter3">
+      <h2 class="section-title">Iteration 3 · Audit-Driven Best Practice (13–18)</h2>
+      <section class="grid">
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-13-zfold-timeline-obsidian.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">13 · Z-Fold 6-Col Timeline (Obsidian)</div><div class="card-meta">Website imagery · Zero crease collisions · 5 eras + bespoke</div></div>
+            <a class="btn" href="leaflet-13-zfold-timeline-obsidian.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-14-zfold-timeline-limestone.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">14 · Z-Fold 6-Col Timeline (Limestone)</div><div class="card-meta">Poster imagery · High-contrast #755632 · Zero repeats</div></div>
+            <a class="btn" href="leaflet-14-zfold-timeline-limestone.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-15-trifold-obsidian-v3.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">15 · Tri-Fold Precision (97|100|100)</div><div class="card-meta">Website imagery · C-fold trim · 2-panel 5-feast spread</div></div>
+            <a class="btn" href="leaflet-15-trifold-obsidian-v3.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-16-trifold-poster-twin-v3.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">16 · Tri-Fold Poster-Twin (97|100|100)</div><div class="card-meta">Poster imagery · Aztec cover · Real Josh photo · Zero repeats</div></div>
+            <a class="btn" href="leaflet-16-trifold-poster-twin-v3.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-17-gatefold-smart-v3.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">17 · Gatefold Smart Allocation (72.5|152|72.5)</div><div class="card-meta">Website imagery · Contact on door V · Story/Steps on 152mm</div></div>
+            <a class="btn" href="leaflet-17-gatefold-smart-v3.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-18-stepped-cfold-limestone.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">18 · Stepped C-Fold Limestone (85|106|106)</div><div class="card-meta">Poster imagery · 21mm visible gold spine tab · 4 plates</div></div>
+            <a class="btn" href="leaflet-18-stepped-cfold-limestone.html" target="_blank">Open</a>
+          </div>
+        </article>
+      </section>
+    </div>
+    <div class="group" data-group="tight">
+      <h2 class="section-title">Iteration 2 · Criteria-Tight Refinements (07–09)</h2>
+      <section class="grid">
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-07-trifold-precision.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">07 · Tri-Fold Precision (5 Feasts)</div><div class="card-meta">Website imagery · 2-panel feast spread · ≥9pt body</div></div>
+            <a class="btn" href="leaflet-07-trifold-precision.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-08-gatefold-precision.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">08 · Gatefold Precision (5 Feasts)</div><div class="card-meta">Website imagery · Hero Saladin + 2×2 spread</div></div>
+            <a class="btn" href="leaflet-08-gatefold-precision.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-09-gatefold-museum-precision.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">09 · Gatefold Museum Limestone (4 Feasts)</div><div class="card-meta">Poster imagery · High-contrast #755632 on sandstone</div></div>
+            <a class="btn" href="leaflet-09-gatefold-museum-precision.html" target="_blank">Open</a>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <div class="group" data-group="creative">
+      <h2 class="section-title">Iteration 2 · Creative Formats (10–12)</h2>
+      <section class="grid">
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-10-zfold-panoramic.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">10 · Z-Fold Panoramic Timeline (5 Feasts)</div><div class="card-meta">Website imagery · 1066→1880 unbroken inside spread</div></div>
+            <a class="btn" href="leaflet-10-zfold-panoramic.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-11-crossfold-poster-dossier.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">11 · Cross-Fold Poster-Dossier (5 Feasts)</div><div class="card-meta">Poster imagery · Unfolds into mini exhibition poster</div></div>
+            <a class="btn" href="leaflet-11-crossfold-poster-dossier.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="leaflet-12-asymmetric-tasting-card.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">12 · Asymmetric Tasting Programme (4 Feasts)</div><div class="card-meta">Website imagery · 82mm | 133mm | 82mm fine-dining layout</div></div>
+            <a class="btn" href="leaflet-12-asymmetric-tasting-card.html" target="_blank">Open</a>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <div class="group" data-group="iter1">
+      <h2 class="section-title">Iteration 1 · Initial Drafts (01–06)</h2>
+      <section class="grid">
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-01-trifold-obsidian.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">01 · Tri-Fold Obsidian (5 Feasts)</div><div class="card-meta">Website imagery · Score 81/100</div></div>
+            <a class="btn" href="../leaflet-01-trifold-obsidian.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-02-trifold-editorial.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">02 · Tri-Fold Editorial Split (4 Feasts)</div><div class="card-meta">Website imagery · Score 78/100</div></div>
+            <a class="btn" href="../leaflet-02-trifold-editorial.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-03-gatefold-spread.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">03 · Gatefold Spread (5 Feasts)</div><div class="card-meta">Website imagery · Score 85/100</div></div>
+            <a class="btn" href="../leaflet-03-gatefold-spread.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-04-gatefold-dark-feast.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">04 · Gatefold Feast-First (4 Feasts)</div><div class="card-meta">Website imagery · Score 83/100</div></div>
+            <a class="btn" href="../leaflet-04-gatefold-dark-feast.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-05-trifold-poster-dark.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">05 · Tri-Fold Poster Twin (5 Feasts)</div><div class="card-meta">Poster imagery · Score 80/100</div></div>
+            <a class="btn" href="../leaflet-05-trifold-poster-dark.html" target="_blank">Open</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="preview-frame"><iframe src="../leaflet-06-gatefold-poster-limestone.html" loading="lazy"></iframe></div>
+          <div class="card-bar">
+            <div><div class="card-title">06 · Gatefold Limestone (4 Feasts)</div><div class="card-meta">Poster imagery · Score 84/100</div></div>
+            <a class="btn" href="../leaflet-06-gatefold-poster-limestone.html" target="_blank">Open</a>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.group').forEach(g => {
+          g.classList.toggle('hidden', f !== 'all' && g.dataset.group !== f);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

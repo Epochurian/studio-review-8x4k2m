@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet 01 (A4 Tri-Fold · Obsidian Classic · 5 Feasts)</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    body {
+      background: #1a1816;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12mm;
+      padding: 10mm 0;
+    }
+    .sheet {
+      width: 297mm;
+      height: 210mm;
+      background: var(--bg-primary);
+      color: var(--sandstone-light);
+      display: grid;
+      grid-template-columns: repeat(3, 99mm);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      page-break-after: always;
+    }
+    .panel {
+      width: 99mm;
+      height: 210mm;
+      padding: 11mm 9mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 0.25mm dashed rgba(181, 149, 107, 0.22);
+    }
+    .panel:last-child { border-right: none; }
+    .pg-num {
+      position: absolute;
+      bottom: 3.5mm;
+      right: 4.5mm;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      opacity: 0.65;
+      z-index: 5;
+    }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.5mm;
+    }
+    h2.panel-title {
+      font-family: var(--font-heading);
+      font-size: 20pt;
+      line-height: 1.05;
+      color: var(--sandstone-light);
+      margin-bottom: 3.5mm;
+    }
+    .body-copy {
+      font-family: var(--font-sans);
+      font-size: 8.6pt;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+    .quote-box {
+      border-left: 0.6mm solid var(--gold);
+      padding-left: 3.5mm;
+      margin: 4mm 0;
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 10.5pt;
+      line-height: 1.38;
+      color: var(--sandstone-light);
+    }
+    .quote-box cite {
+      display: block;
+      margin-top: 1.5mm;
+      font-style: normal;
+      font-family: var(--font-sans);
+      font-size: 7pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Cover Panel */
+    .cover { padding: 0; }
+    .cover-photo {
+      position: absolute;
+      inset: 0;
+    }
+    .cover-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.62);
+    }
+    .cover-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,13,12,0.82) 0%, rgba(14,13,12,0.22) 45%, rgba(14,13,12,0.92) 100%);
+    }
+    .cover-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 13mm 10mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 0.35mm solid rgba(181, 149, 107, 0.32);
+      margin: 5mm;
+      height: calc(100% - 10mm);
+    }
+    .cover-brand .wordmark {
+      font-family: var(--font-heading);
+      font-size: 26pt;
+      letter-spacing: 0.2em;
+      color: var(--sandstone-light);
+      line-height: 1;
+    }
+    .cover-brand .tagline {
+      font-family: var(--font-tagline);
+      font-size: 28pt;
+      color: var(--gold);
+      line-height: 1;
+      margin-top: 1mm;
+    }
+    .cover-foot h1 {
+      font-family: var(--font-heading);
+      font-size: 21pt;
+      line-height: 1.08;
+      color: var(--sandstone-light);
+      margin-bottom: 3mm;
+    }
+    .cover-foot p {
+      font-family: var(--font-sans);
+      font-size: 8.5pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-hover);
+    }
+
+    /* Photo box */
+    .photo-box {
+      width: 100%;
+      overflow: hidden;
+      border: 0.35mm solid rgba(181, 149, 107, 0.3);
+      background: var(--bg-secondary);
+      padding: 1.5mm;
+    }
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 6mm; margin-top: 2mm; }
+    .step {
+      border-top: 0.35mm solid rgba(181, 149, 107, 0.28);
+      padding-top: 4mm;
+    }
+    .step-num {
+      font-family: var(--font-heading);
+      font-size: 16pt;
+      color: var(--gold);
+      margin-bottom: 1mm;
+    }
+    .step h3 {
+      font-family: var(--font-heading);
+      font-size: 12pt;
+      color: var(--sandstone-light);
+      margin-bottom: 1.5mm;
+    }
+
+    /* 5 Feasts compact list */
+    .feast-list { display: flex; flex-direction: column; gap: 3.3mm; }
+    .feast-item {
+      display: grid;
+      grid-template-columns: 20mm 1fr;
+      gap: 3mm;
+      align-items: center;
+      padding-bottom: 3mm;
+      border-bottom: 0.25mm solid rgba(181, 149, 107, 0.22);
+    }
+    .feast-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .feast-thumb {
+      width: 20mm;
+      height: 20mm;
+      overflow: hidden;
+      border: 0.3mm solid rgba(181, 149, 107, 0.35);
+    }
+    .feast-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .feast-meta .era {
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .feast-meta h4 {
+      font-family: var(--font-heading);
+      font-size: 11pt;
+      color: var(--sandstone-light);
+      line-height: 1.1;
+      margin: 0.5mm 0 1mm;
+    }
+    .feast-meta p {
+      font-family: var(--font-sans);
+      font-size: 7.4pt;
+      line-height: 1.35;
+      color: var(--text-muted);
+    }
+    .feast-meta .hl { color: var(--sandstone); font-style: italic; }
+
+    /* Back Panel */
+    .contact-block {
+      border-top: 0.4mm solid rgba(181, 149, 107, 0.35);
+      border-bottom: 0.4mm solid rgba(181, 149, 107, 0.35);
+      padding: 5mm 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5mm;
+    }
+    .contact-row .lbl {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .contact-row .val {
+      font-family: var(--font-sans);
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: var(--sandstone-light);
+    }
+    .qr-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+    }
+    .qr-box {
+      width: 28mm;
+      height: 28mm;
+      background: var(--sandstone-light);
+      padding: 1mm;
+      flex-shrink: 0;
+    }
+    .qr-box img { width: 100%; height: 100%; display: block; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .sheet { box-shadow: none; }
+      .panel { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- OUTSIDE SHEET: [Outer Flap: The Chef] | [Back Cover: Contact] | [Front Cover] -->
+  <div class="sheet">
+    <!-- Panel 5: Outer Flap — The Chef -->
+    <section class="panel">
+      <span class="pg-num">V</span>
+      <div>
+        <div class="eyebrow">The Founder &amp; Chef</div>
+        <h2 class="panel-title">A Culinary Voyage Through Time</h2>
+        <div class="photo-box" style="height: 62mm; margin-bottom: 4mm;">
+          <img src="../website/images/banquet-cheers-guests.webp" alt="Josh toasting with guests">
+        </div>
+        <p class="body-copy">
+          I'm Josh, chef and founder of Epochurian. Raised on a melting-pot of Cantonese, Shanghainese, Egyptian, Russian, Dutch and British cooking, I started at 10 and never stopped.
+        </p>
+        <div class="quote-box">
+          "I wanted people to feel like they were on an adventure, where the only guarantee was being well fed."
+        </div>
+      </div>
+      <p class="body-copy" style="color: var(--sandstone); font-size: 8pt;">
+        Every dish is researched from historical manuscripts and brought to life live at your table.
+      </p>
+    </section>
+
+    <!-- Panel 6: Back Cover — Contact & QR -->
+    <section class="panel">
+      <span class="pg-num">VI</span>
+      <div>
+        <div class="eyebrow">Begin Your Journey</div>
+        <h2 class="panel-title">Host a Historical Banquet</h2>
+        <p class="body-copy" style="margin-bottom: 4mm;">
+          Bespoke multi-course feasts cooked in private homes across London, or hosted in our N10 garden venue for select bookings.
+        </p>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-row">
+          <div class="lbl">Website</div>
+          <div class="val">epochurian.com</div>
+        </div>
+        <div class="contact-row">
+          <div class="lbl">Email</div>
+          <div class="val">info@epochurian.com</div>
+        </div>
+        <div class="contact-row">
+          <div class="lbl">Phone &amp; WhatsApp</div>
+          <div class="val">+44 7874 898636</div>
+        </div>
+        <div class="contact-row">
+          <div class="lbl">Instagram</div>
+          <div class="val">@epochurian</div>
+        </div>
+      </div>
+
+      <div class="qr-wrap">
+        <div class="qr-box">
+          <img src="assets/qr-web-dark.svg" alt="QR code for epochurian.com">
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom: 1mm;">Explore Menus</div>
+          <p class="body-copy" style="font-size: 8pt;">Scan to view full historical menus and enquire for your date.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 1: Front Cover -->
+    <section class="panel cover">
+      <span class="pg-num">I</span>
+      <div class="cover-photo">
+        <img src="../website/images/banquet-guests-laughing.webp" alt="Guests dining at an Epochurian historical banquet">
+      </div>
+      <div class="cover-grad"></div>
+      <div class="cover-inner">
+        <div class="cover-brand">
+          <div class="wordmark">EPOCHURIAN</div>
+          <div class="tagline">Taste History</div>
+        </div>
+        <div class="cover-foot">
+          <h1>Transport Your Dining Table Across Centuries.</h1>
+          <p>Historical Private Dining &nbsp;·&nbsp; London</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- INSIDE SHEET: [Inside Left: What We Do] | [Inside Centre: How It Works] | [Inside Right: 5 Feasts] -->
+  <div class="sheet">
+    <!-- Panel 2: Inside Left — What We Do -->
+    <section class="panel">
+      <span class="pg-num">II</span>
+      <div>
+        <div class="eyebrow">What We Do</div>
+        <h2 class="panel-title">Private Dining, Reimagined</h2>
+        <p class="body-copy">
+          Epochurian provides deeply researched historical private dining in the comfort of your own home. Using authentic period recipes, techniques, and ingredients, we bring lost banquets back to the table.
+        </p>
+        <div class="quote-box">
+          "Everything I ate was new and I enjoyed every bite."
+          <cite>Ming Banquet Guest · North London</cite>
+        </div>
+      </div>
+      <div class="photo-box" style="height: 82mm;">
+        <img src="../website/images/table-setting-banquet.webp" alt="Candlelit historical banquet table setting">
+      </div>
+    </section>
+
+    <!-- Panel 3: Inside Centre — How It Works (Typographic) -->
+    <section class="panel" style="background: var(--bg-secondary);">
+      <span class="pg-num">III</span>
+      <div>
+        <div class="eyebrow">The Experience</div>
+        <h2 class="panel-title">How It Works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">I.</div>
+            <h3>Any Era in History</h3>
+            <p class="body-copy">Choose one of our signature feasts or commission any epoch, civilisation, or family heritage.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">II.</div>
+            <h3>Personalised &amp; Site Visit</h3>
+            <p class="body-copy">Tailored to your guests' tastes and dietary needs. We adapt to domestic kitchens of any size, including an in-person consultation.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">III.</div>
+            <h3>Live Storytelling</h3>
+            <p class="body-copy">We cook live and present each course with its history — and leave your kitchen spotless at the end of the night.</p>
+          </div>
+        </div>
+      </div>
+      <p class="eyebrow" style="margin: 0; color: var(--sandstone);">Private Homes · N10 Garden</p>
+    </section>
+
+    <!-- Panel 4: Inside Right — All 5 Feasts -->
+    <section class="panel">
+      <span class="pg-num">IV</span>
+      <div>
+        <div class="eyebrow">Signature Menus</div>
+        <h2 class="panel-title" style="font-size: 18pt; margin-bottom: 3mm;">Five Centuries of Feasts</h2>
+        <div class="feast-list">
+          <div class="feast-item">
+            <div class="feast-thumb"><img src="../website/images/court-of-saladin.webp" alt="Court of Saladin"></div>
+            <div class="feast-meta">
+              <div class="era">12th C. Holy Land</div>
+              <h4>The Court of Saladin</h4>
+              <p>Spit-roasted centrepiece &amp; saffron spices. <span class="hl">Highlight: Soured pomegranate confection.</span></p>
+            </div>
+          </div>
+          <div class="feast-item">
+            <div class="feast-thumb"><img src="../website/images/chef-plating-service.webp" alt="The Great Ming"></div>
+            <div class="feast-meta">
+              <div class="era">15th C. China</div>
+              <h4>The Great Ming</h4>
+              <p>Imperial court delicacy meets bold provincial dishes. <span class="hl">Highlight: Snow fungus &amp; pear soup.</span></p>
+            </div>
+          </div>
+          <div class="feast-item">
+            <div class="feast-thumb"><img src="../website/images/age-of-discovery-aztec.webp" alt="Age of Discovery"></div>
+            <div class="feast-meta">
+              <div class="era">15th–16th C. Americas</div>
+              <h4>Voyage to the New World</h4>
+              <p>The Columbian Exchange in edible form. <span class="hl">Highlight: Tobacco-infused dessert.</span></p>
+            </div>
+          </div>
+          <div class="feast-item">
+            <div class="feast-thumb"><img src="../website/images/russian-tsarist-feast.webp" alt="Aristocratic Dacha"></div>
+            <div class="feast-meta">
+              <div class="era">19th C. Russia</div>
+              <h4>The Aristocratic Dacha</h4>
+              <p>Slavic estate classics &amp; French haute cuisine. <span class="hl">Highlight: Blini with caviar.</span></p>
+            </div>
+          </div>
+          <div class="feast-item">
+            <div class="feast-thumb"><img src="../website/images/norman-duck-main.webp" alt="Norman Conquest"></div>
+            <div class="feast-meta">
+              <div class="era">11th C. England</div>
+              <h4>The Norman Conquest</h4>
+              <p>Forest game, spiced meats &amp; flowing wine. <span class="hl">Highlight: Venison with duck liver.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="body-copy" style="font-size: 7.5pt; color: var(--gold);">Bespoke menus from any historical period also available.</p>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "updated_at": "2026-11-22 18:59",
+  "sections": [
+    {
+      "title": "Posters & Flyers",
+      "tag": "Print & Visual",
+      "description": "Poster concepts, museum-style layouts, and print renders (HTML & PDF).",
+      "href": "physical-media/gallery.html"
+    },
+    {
+      "title": "Leaflets",
+      "tag": "Print & Fold",
+      "description": "Tri-fold, gatefold, and z-fold leaflet iterations.",
+      "href": "physical-media/leaflets/leaflet-gallery.html"
+    },
+    {
+      "title": "Business Cards",
+      "tag": "Area",
+      "description": "Review files in business-cards/",
+      "href": "business-cards/index.html"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — 18 (11B: Light Tight Square)</title>
+  <link rel="stylesheet" href="assets/brand.css">
+  <style>
+    .poster-18 {
+      background: var(--sandstone-light);
+      color: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15mm 17mm 14mm;
+    }
+
+    .top-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5mm solid var(--bg-primary);
+      padding-bottom: 3.5mm;
+    }
+    .top-strip .brand {
+      font-family: var(--font-display);
+      font-size: 22pt;
+      letter-spacing: 0.3em;
+      color: var(--bg-primary);
+    }
+    .top-strip .loc {
+      font-family: var(--font-sans);
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6b5335;
+    }
+
+    .stage {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 88mm 1fr;
+      gap: 7mm;
+      align-items: center;
+      margin: 4mm 0;
+    }
+
+    .years-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .year-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-bottom: 0.35mm solid rgba(14, 13, 12, 0.18);
+      padding: 3.5mm 0 4.5mm;
+    }
+    .year-row:last-child {
+      border-bottom: none;
+    }
+    .year-num {
+      font-family: var(--font-display);
+      font-size: 66pt;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      color: rgba(14, 13, 12, 0.22);
+    }
+    .year-num.lit {
+      color: var(--bg-primary);
+    }
+    .year-label {
+      margin-top: 2mm;
+      font-family: var(--font-sans);
+      font-size: 12pt;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8c693e;
+    }
+
+    .square-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 0.45mm solid rgba(14, 13, 12, 0.25);
+      padding: 4mm;
+      background: #ffffff;
+      box-shadow: 0 18px 45px rgba(14, 13, 12, 0.12);
+      display: flex;
+      flex-direction: column;
+    }
+    .square-img-wrap {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .square-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .square-caption {
+      padding-top: 3mm;
+      font-family: var(--font-sans);
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4f463e;
+    }
+
+    .bottom-block {
+      border-top: 0.5mm solid var(--bg-primary);
+      padding-top: 5.5mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 7mm;
+    }
+    .bottom-hook h1 {
+      font-family: var(--font-display);
+      font-size: 48pt;
+      line-height: 0.96;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+    }
+    .bottom-hook h1 span {
+      color: #8c693e;
+    }
+    .bottom-hook p {
+      margin-top: 3mm;
+      font-family: var(--font-editorial);
+      font-size: 18pt;
+      color: #2f2a26;
+    }
+
+    .qr-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4.5mm;
+      flex-shrink: 0;
+    }
+    .qr-wrap .txt {
+      text-align: right;
+      font-family: var(--font-sans);
+    }
+    .qr-wrap .txt .url {
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+    }
+    .qr-wrap .txt .ig {
+      font-size: 14pt;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: #6b5335;
+      margin-top: 1.5mm;
+    }
+    .qr-wrap .qr {
+      width: 30mm;
+      height: 30mm;
+      padding: 1.5mm;
+      border: 0.4mm solid rgba(14, 13, 12, 0.28);
+      background: #ffffff;
+    }
+    .qr-wrap .qr img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster poster-18">
+    <header class="top-strip">
+      <div class="brand">EPOCHURIAN</div>
+      <div class="loc">Private Banquets · London</div>
+    </header>
+
+    <main class="stage">
+      <div class="years-col">
+        <div class="year-row">
+          <div class="year-num">1066</div>
+          <div class="year-label">Normandy</div>
+        </div>
+        <div class="year-row">
+          <div class="year-num">1420</div>
+          <div class="year-label">Florence</div>
+        </div>
+        <div class="year-row">
+          <div class="year-num">1519</div>
+          <div class="year-label">Tenochtitlan</div>
+        </div>
+        <div class="year-row">
+          <div class="year-num lit">1840</div>
+          <div class="year-label">St. Petersburg</div>
+        </div>
+      </div>
+
+      <div class="square-frame">
+        <div class="square-img-wrap">
+          <img src="assets/images/russia.jpg" alt="1840 St. Petersburg poached plum with burnt sugar shards on gold cloth">
+        </div>
+        <div class="square-caption">1840 St. Petersburg · Poached Plum &amp; Burnt Sugar</div>
+      </div>
+    </main>
+
+    <footer class="bottom-block">
+      <div class="bottom-hook">
+        <h1>Pick a Setting.<br><span>We’ll Do the Rest.</span></h1>
+        <p>Historical tasting banquets in your London home or our N10 garden.</p>
+      </div>
+      <div class="qr-wrap">
+        <div class="txt">
+          <div class="url">epochurian.com</div>
+          <div class="ig">@epochurian</div>
+        </div>
+        <div class="qr">
+          <img src="assets/qr-web-dark.svg" alt="Scan for epochurian.com">
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

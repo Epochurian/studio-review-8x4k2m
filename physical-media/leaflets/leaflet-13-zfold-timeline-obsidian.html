@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet 13 (Iter 3 · Z-Fold 6-Col Timeline · Obsidian · 5 Feasts)</title>
+  <link rel="stylesheet" href="../assets/brand.css">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    body {
+      background: #1a1816;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12mm;
+      padding: 10mm 0;
+    }
+    .sheet {
+      width: 297mm;
+      height: 210mm;
+      background: var(--bg-primary);
+      color: var(--sandstone-light);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      page-break-after: always;
+    }
+    .outside-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 99mm);
+      height: 100%;
+    }
+    .panel {
+      width: 99mm;
+      height: 210mm;
+      padding: 12mm 10mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 0.25mm dashed rgba(181, 149, 107, 0.22);
+    }
+    .panel:last-child { border-right: none; }
+    .pg-num {
+      position: absolute;
+      bottom: 3.5mm;
+      right: 4.5mm;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      opacity: 0.65;
+      z-index: 5;
+    }
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2mm;
+    }
+    h2.title { font-family: var(--font-heading); font-size: 19.5pt; line-height: 1.06; margin-bottom: 3mm; }
+    .body-copy { font-family: var(--font-sans); font-size: 9pt; line-height: 1.48; color: var(--text-main); }
+
+    /* Cover */
+    .cover { padding: 0; }
+    .cover .bg { position: absolute; inset: 0; }
+    .cover .bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62); }
+    .cover .inner {
+      position: relative;
+      z-index: 2;
+      margin: 5.5mm;
+      height: calc(100% - 11mm);
+      padding: 12mm 9mm;
+      border: 0.35mm solid rgba(181, 149, 107, 0.42);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(14,13,12,0.84) 0%, rgba(14,13,12,0.16) 48%, rgba(14,13,12,0.92) 100%);
+    }
+    .wordmark { font-family: var(--font-heading); font-size: 25pt; letter-spacing: 0.2em; line-height: 1; }
+    .tagline { font-family: var(--font-tagline); font-size: 27pt; color: var(--gold); line-height: 1; }
+
+    /* Inside Panoramic 6-Column Timeline (2 columns per 99mm panel, creases at 99mm & 198mm fall cleanly in gaps) */
+    .pano {
+      display: flex;
+      flex-direction: column;
+      padding: 10mm 6mm 10.5mm;
+      height: 100%;
+      justify-content: space-between;
+      position: relative;
+    }
+    .pano-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 0.4mm solid rgba(181, 149, 107, 0.35);
+      padding-bottom: 3mm;
+      margin: 0 3mm;
+    }
+    .crease-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      border-left: 0.25mm dashed rgba(181, 149, 107, 0.22);
+      pointer-events: none;
+    }
+    .timeline-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4mm;
+      flex: 1;
+      padding: 8mm 3mm 0;
+    }
+    .timeline-axis {
+      position: absolute;
+      top: 4mm;
+      left: 3mm;
+      right: 3mm;
+      height: 0.4mm;
+      background: rgba(181, 149, 107, 0.55);
+    }
+    .t-col {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--bg-secondary);
+      border: 0.35mm solid rgba(181, 149, 107, 0.28);
+      overflow: hidden;
+    }
+    .t-col.bespoke {
+      background: rgba(181, 149, 107, 0.08);
+      border-color: rgba(181, 149, 107, 0.5);
+    }
+    .t-dot {
+      position: absolute;
+      top: -5.3mm;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3mm;
+      height: 3mm;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 0.5mm solid var(--bg-primary);
+    }
+    .t-year {
+      background: rgba(181, 149, 107, 0.14);
+      padding: 2mm 2.5mm;
+      font-family: var(--font-heading);
+      font-size: 12pt;
+      color: var(--gold-hover);
+      text-align: center;
+      border-bottom: 0.25mm solid rgba(181, 149, 107, 0.25);
+    }
+    .t-img { height: 48mm; overflow: hidden; }
+    .t-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .t-body { padding: 3mm; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+    .t-body h3 { font-family: var(--font-heading); font-size: 11.2pt; line-height: 1.1; margin: 1mm 0 1.2mm; }
+    .t-body p { font-family: var(--font-sans); font-size: 8.2pt; line-height: 1.38; color: var(--text-main); }
+    .t-hl {
+      margin-top: 2mm;
+      padding-top: 2mm;
+      border-top: 0.25mm solid rgba(181, 149, 107, 0.25);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 8.2pt;
+      color: var(--sandstone);
+    }
+
+    .photo-box { width: 100%; overflow: hidden; border: 0.35mm solid rgba(181, 149, 107, 0.3); padding: 1.5mm; background: var(--bg-secondary); }
+    .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .c-line { border-bottom: 0.25mm solid rgba(181, 149, 107, 0.25); padding: 2mm 0; font-family: var(--font-sans); font-size: 9.8pt; font-weight: 600; }
+    .c-line span { font-size: 6.5pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: block; }
+    .qr-box { width: 28mm; height: 28mm; background: var(--sandstone-light); padding: 1mm; flex-shrink: 0; }
+    .qr-box img { width: 100%; height: 100%; display: block; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .sheet { box-shadow: none; }
+      .panel, .crease-line { border: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- OUTSIDE (Z-Fold): I (Front Cover) | V (What We Do & Meet Josh) | VI (Back Contact & QR) -->
+  <div class="sheet">
+    <div class="outside-grid">
+      <section class="panel cover">
+        <span class="pg-num">I</span>
+        <div class="bg"><img src="../../website/images/banquet-guests-laughing.webp" alt="Epochurian banquet"></div>
+        <div class="inner">
+          <div>
+            <div class="wordmark">EPOCHURIAN</div>
+            <div class="tagline">Taste History</div>
+          </div>
+          <div>
+            <h1 style="font-family: var(--font-heading); font-size: 20pt; line-height: 1.08; margin-bottom: 3mm;">Eight Centuries at Your Dining Table.</h1>
+            <p class="eyebrow" style="margin: 0; color: var(--gold-hover);">Historical Banquets in Your Home</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <span class="pg-num">V</span>
+        <div>
+          <div class="eyebrow">The Chef &amp; Philosophy</div>
+          <h2 class="title">Private Dining, Reimagined</h2>
+          <div class="photo-box" style="height: 52mm; margin-bottom: 3.5mm;">
+            <img src="../../website/images/medieval-hall-candlelight.webp" alt="Josh presenting the Court of Saladin">
+          </div>
+          <p class="body-copy">
+            Chef Josh grew up across Cantonese, Shanghainese, Egyptian, Russian, Dutch and British kitchens, cooking since age 10. Every menu is researched from period manuscripts and cooked live in domestic kitchens of any size — and left spotless.
+          </p>
+          <p class="body-copy" style="margin-top: 3mm; padding-left: 3mm; border-left: 0.5mm solid var(--gold); font-family: var(--font-body); font-style: italic; color: var(--sandstone-light);">
+            "Everything I ate was new and I enjoyed every bite." — Ming guest, N. London
+          </p>
+        </div>
+        <div class="eyebrow" style="margin: 0; color: var(--sandstone);">6–24 Guests · Bespoke Per-Head</div>
+      </section>
+
+      <section class="panel" style="background: var(--bg-secondary);">
+        <span class="pg-num">VI</span>
+        <div>
+          <div class="eyebrow">Begin Your Journey</div>
+          <h2 class="title">Enquire &amp; Book</h2>
+          <p class="body-copy">
+            Private homes across London &amp; Greater London, or limited bookings in our private N10 garden venue.
+          </p>
+          <div style="margin-top: 4mm; border-top: 0.35mm solid rgba(181,149,107,0.35);">
+            <div class="c-line"><span>Website</span>epochurian.com</div>
+            <div class="c-line"><span>Email</span>info@epochurian.com</div>
+            <div class="c-line"><span>Phone &amp; WhatsApp</span>+44 7874 898636</div>
+            <div class="c-line" style="border-bottom: none;"><span>Instagram</span>@epochurian</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4mm;">
+          <div class="qr-box"><img src="../assets/qr-web-dark.svg" alt="QR"></div>
+          <div>
+            <div class="eyebrow" style="margin-bottom: 1mm;">Explore Full Menus</div>
+            <p class="body-copy" style="font-size: 8.2pt;">Scan to browse courses and request a date for your banquet.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- INSIDE: 6-Column Panoramic Timeline (II: Cols 1-2 | III: Cols 3-4 | IV: Cols 5-6 — creases sit cleanly between columns!) -->
+  <div class="sheet">
+    <div class="crease-line" style="left: 99mm;"></div>
+    <div class="crease-line" style="left: 198mm;"></div>
+    <span class="pg-num">II · III · IV</span>
+    <div class="pano">
+      <div class="pano-head">
+        <div>
+          <div class="eyebrow" style="margin-bottom: 0.5mm;">Chronological Tasting Anthology</div>
+          <h2 class="title" style="margin: 0;">A Panoramic Voyage Through Time</h2>
+        </div>
+        <div class="eyebrow" style="margin: 0; color: var(--sandstone);">Five Signature Eras + Your Commission</div>
+      </div>
+
+      <div class="timeline-track">
+        <div class="timeline-axis"></div>
+
+        <article class="t-col">
+          <div class="t-dot"></div>
+          <div class="t-year">1066</div>
+          <div class="t-img"><img src="../../website/images/norman-duck-main.webp" alt="Norman Conquest"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">11th C. England</div>
+              <h3>The Norman Conquest</h3>
+              <p>England's first noted court cuisine: forest game, spiced meats, and flowing wine.</p>
+            </div>
+            <div class="t-hl">Venison with duck liver</div>
+          </div>
+        </article>
+
+        <article class="t-col">
+          <div class="t-dot"></div>
+          <div class="t-year">1191</div>
+          <div class="t-img"><img src="../../website/images/court-of-saladin.webp" alt="Court of Saladin"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">12th C. Holy Land</div>
+              <h3>The Court of Saladin</h3>
+              <p>Ayyubid royal hospitality with spit-roasts, saffron pilafs, and rose water.</p>
+            </div>
+            <div class="t-hl">Soured pomegranate confection</div>
+          </div>
+        </article>
+
+        <article class="t-col">
+          <div class="t-dot"></div>
+          <div class="t-year">1420</div>
+          <div class="t-img"><img src="../../website/images/chef-plating-service.webp" alt="The Great Ming"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">15th C. China</div>
+              <h3>The Great Ming</h3>
+              <p>Imperial palace artistry contrasted with bold provincial Chinese flavours.</p>
+            </div>
+            <div class="t-hl">Snow fungus &amp; pear soup</div>
+          </div>
+        </article>
+
+        <article class="t-col">
+          <div class="t-dot"></div>
+          <div class="t-year">1519</div>
+          <div class="t-img"><img src="../../website/images/age-of-discovery-aztec.webp" alt="New World"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">Age of Discovery</div>
+              <h3>Voyage to the New World</h3>
+              <p>The Columbian Exchange in six courses, from Europe to Tenochtitlan.</p>
+            </div>
+            <div class="t-hl">Tobacco-infused dessert</div>
+          </div>
+        </article>
+
+        <article class="t-col">
+          <div class="t-dot"></div>
+          <div class="t-year">1880</div>
+          <div class="t-img"><img src="../../website/images/russian-tsarist-feast.webp" alt="Aristocratic Dacha"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">19th C. Russia</div>
+              <h3>The Aristocratic Dacha</h3>
+              <p>Imperial Slavic estate classics fused with French haute cuisine.</p>
+            </div>
+            <div class="t-hl">Blini with caviar</div>
+          </div>
+        </article>
+
+        <article class="t-col bespoke">
+          <div class="t-dot"></div>
+          <div class="t-year">YOUR ERA</div>
+          <div class="t-img"><img src="../../website/images/table-setting-banquet.webp" alt="Bespoke Banquet"></div>
+          <div class="t-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">How It Works</div>
+              <h3>Commission Any Period</h3>
+              <p>1. Pick any era.<br>2. Site visit &amp; dietary tailoring.<br>3. Live storytelling &amp; spotless cleanup.</p>
+            </div>
+            <div class="t-hl">6–24 guests · At home or N10</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
