@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet 20 (Portrait A4 Z-Fold · 3 Wide Horizontal Timeline Bands)</title>
+  <link rel="stylesheet" href="../assets/brand.css">
+  <style>
+    @page { size: A4 portrait; margin: 0; }
+    body {
+      background: #1a1816;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12mm;
+      padding: 10mm 0;
+    }
+    /* Portrait A4 (210mm x 297mm) folded horizontally into three 210mm x 99mm landscape bands! */
+    .sheet {
+      width: 210mm;
+      height: 297mm;
+      background: var(--bg-primary);
+      color: var(--sandstone-light);
+      display: grid;
+      grid-template-rows: repeat(3, 99mm);
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      page-break-after: always;
+    }
+    .band {
+      width: 210mm;
+      height: 99mm;
+      padding: 8mm 10mm;
+      border-bottom: 0.25mm dashed rgba(181, 149, 107, 0.22);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .band:last-child { border-bottom: none; }
+    .pg-num {
+      position: absolute;
+      bottom: 3mm;
+      right: 4mm;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      opacity: 0.65;
+      z-index: 5;
+    }
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5mm;
+    }
+    h2.title { font-family: var(--font-heading); font-size: 18pt; line-height: 1.05; margin-bottom: 2mm; }
+    .body-copy { font-family: var(--font-sans); font-size: 8.6pt; line-height: 1.44; color: var(--text-main); }
+
+    /* Band I: Front Cover (210mm x 99mm wide!) */
+    .cover-band {
+      display: grid;
+      grid-template-columns: 1fr 92mm;
+      gap: 6mm;
+      padding: 8mm 10mm;
+    }
+    .cover-photo {
+      height: 100%;
+      overflow: hidden;
+      border: 0.35mm solid rgba(181, 149, 107, 0.4);
+      padding: 1.5mm;
+      background: var(--bg-secondary);
+    }
+    .cover-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .wordmark { font-family: var(--font-heading); font-size: 26pt; letter-spacing: 0.2em; line-height: 1; }
+    .tagline { font-family: var(--font-tagline); font-size: 28pt; color: var(--gold); line-height: 1; }
+
+    /* 2-up Wide Menu Cards per Band */
+    .pair-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6mm;
+      flex: 1;
+    }
+    .h-card {
+      background: var(--bg-secondary);
+      border: 0.35mm solid rgba(181, 149, 107, 0.32);
+      display: grid;
+      grid-template-columns: 36mm 1fr;
+      overflow: hidden;
+    }
+    .h-img { position: relative; height: 100%; overflow: hidden; }
+    .h-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .h-yr {
+      position: absolute;
+      top: 2mm;
+      left: 2mm;
+      background: rgba(14, 13, 12, 0.88);
+      border: 0.3mm solid rgba(181, 149, 107, 0.55);
+      padding: 0.8mm 2mm;
+      font-family: var(--font-heading);
+      font-size: 9.5pt;
+      color: var(--gold-hover);
+    }
+    .h-body { padding: 3.5mm 4mm; display: flex; flex-direction: column; justify-content: space-between; }
+    .h-body h3 { font-family: var(--font-heading); font-size: 13pt; line-height: 1.08; margin: 0.5mm 0 1mm; }
+    .h-body p { font-family: var(--font-sans); font-size: 8.2pt; line-height: 1.38; color: var(--text-main); }
+    .h-dish {
+      padding-top: 1.8mm;
+      border-top: 0.25mm solid rgba(181, 149, 107, 0.25);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 8.5pt;
+      color: var(--sandstone);
+    }
+
+    /* Contact & Chef horizontal bands */
+    .split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; height: 100%; align-items: center; }
+    .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 6mm; }
+    .c-item .lbl { font-size: 6.2pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-family: var(--font-sans); }
+    .c-item .val { font-size: 9.5pt; font-weight: 600; font-family: var(--font-sans); }
+    .qr-box { width: 26mm; height: 26mm; background: var(--sandstone-light); padding: 1mm; flex-shrink: 0; }
+    .qr-box img { width: 100%; height: 100%; display: block; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .sheet { box-shadow: none; }
+      .band { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- OUTSIDE SHEET (Portrait A4 Z-Fold: 3 Horizontal 210x99mm Bands) -->
+  <div class="sheet">
+    <!-- I: Front Cover -->
+    <section class="band cover-band">
+      <span class="pg-num">I</span>
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="wordmark">EPOCHURIAN</div>
+          <div class="tagline">Taste History</div>
+        </div>
+        <div>
+          <h1 style="font-family: var(--font-heading); font-size: 19pt; line-height: 1.08; margin-bottom: 2mm;">Five Complete 6-Course Historical Banquets.</h1>
+          <p class="eyebrow" style="margin: 0; color: var(--gold-hover);">Select One Era · Cooked Live in Your Home</p>
+        </div>
+      </div>
+      <div class="cover-photo">
+        <img src="../../website/images/banquet-guests-laughing.webp" alt="Epochurian banquet">
+      </div>
+    </section>
+
+    <!-- V: Meet Josh & Guest Proof -->
+    <section class="band" style="background: var(--bg-secondary);">
+      <span class="pg-num">V</span>
+      <div class="split-2">
+        <div>
+          <div class="eyebrow">The Founder &amp; Chef</div>
+          <h2 class="title">Private Dining, Reimagined</h2>
+          <p class="body-copy">
+            Raised across Cantonese, Shanghainese, Egyptian, Russian, Dutch and British kitchens, Josh started cooking at 10. Each banquet adapts to your dietaries and domestic kitchen — and leaves your home spotless.
+          </p>
+          <p class="body-copy" style="margin-top: 2.5mm; padding-left: 3mm; border-left: 0.5mm solid var(--gold); font-family: var(--font-body); font-style: italic; color: var(--sandstone-light);">
+            "Everything I ate was new and I enjoyed every bite." — Ming guest, N. London
+          </p>
+        </div>
+        <div class="cover-photo">
+          <img src="../../website/images/medieval-hall-candlelight.webp" alt="Josh presenting">
+        </div>
+      </div>
+    </section>
+
+    <!-- VI: Back Cover Contact & QR -->
+    <section class="band">
+      <span class="pg-num">VI</span>
+      <div class="split-2">
+        <div>
+          <div class="eyebrow">Begin Your Journey</div>
+          <h2 class="title">Enquire &amp; Book</h2>
+          <p class="body-copy" style="margin-bottom: 3mm;">
+            6–24 guests in your home across London, or limited dates in our private N10 garden.
+          </p>
+          <div class="c-grid">
+            <div class="c-item"><div class="lbl">Website</div><div class="val">epochurian.com</div></div>
+            <div class="c-item"><div class="lbl">Email</div><div class="val">info@epochurian.com</div></div>
+            <div class="c-item"><div class="lbl">Phone &amp; WhatsApp</div><div class="val">+44 7874 898636</div></div>
+            <div class="c-item"><div class="lbl">Instagram</div><div class="val">@epochurian</div></div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5mm; justify-content: flex-end;">
+          <div style="max-width: 55mm; text-align: right;">
+            <div class="eyebrow">Full 6-Course Menus</div>
+            <p class="body-copy" style="font-size: 8.2pt;">Scan to view every course inside each banquet and check date availability.</p>
+          </div>
+          <div class="qr-box"><img src="../assets/qr-web-dark.svg" alt="QR"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- INSIDE SHEET: 3 Wide Horizontal Timeline Bands (II, III, IV) -->
+  <div class="sheet">
+    <section class="band">
+      <span class="pg-num">II</span>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2mm;">
+        <div class="eyebrow" style="margin: 0;">Complete 6-Course Menus · Part 1 (Choose One Era Per Evening)</div>
+        <div class="eyebrow" style="margin: 0; color: var(--sandstone);">1 Signature Dish Pictured Per Menu</div>
+      </div>
+      <div class="pair-row">
+        <article class="h-card">
+          <div class="h-img"><img src="../../website/images/norman-duck-main.webp" alt="Norman Conquest"><div class="h-yr">1066</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">11th C. England · 6 Courses</div>
+              <h3>The Norman Conquest</h3>
+              <p>Forest game, spiced meats &amp; flowing wine fit for William's court.</p>
+            </div>
+            <div class="h-dish">Signature dish: Venison with duck liver</div>
+          </div>
+        </article>
+        <article class="h-card">
+          <div class="h-img"><img src="../../website/images/court-of-saladin.webp" alt="Court of Saladin"><div class="h-yr">1191</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">12th C. Holy Land · 6 Courses</div>
+              <h3>The Court of Saladin</h3>
+              <p>Ayyubid royal hospitality with spit-roasts, saffron &amp; rose water.</p>
+            </div>
+            <div class="h-dish">Signature dish: Soured pomegranate confection</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" style="background: var(--bg-secondary);">
+      <span class="pg-num">III</span>
+      <div class="eyebrow" style="margin-bottom: 2mm;">Complete 6-Course Menus · Part 2</div>
+      <div class="pair-row">
+        <article class="h-card" style="background: var(--bg-primary);">
+          <div class="h-img"><img src="../../website/images/chef-plating-service.webp" alt="The Great Ming"><div class="h-yr">1420</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">15th C. China · 6 Courses</div>
+              <h3>The Great Ming</h3>
+              <p>Imperial court delicacy contrasted with bold provincial Chinese spice.</p>
+            </div>
+            <div class="h-dish">Signature dish: Snow fungus &amp; pear soup</div>
+          </div>
+        </article>
+        <article class="h-card" style="background: var(--bg-primary);">
+          <div class="h-img"><img src="../../website/images/age-of-discovery-aztec.webp" alt="New World"><div class="h-yr">1519</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">Age of Discovery · 6 Courses</div>
+              <h3>Voyage to the New World</h3>
+              <p>The Columbian Exchange in full: from European shores to Tenochtitlan.</p>
+            </div>
+            <div class="h-dish">Signature dish: Tobacco-infused dessert</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <span class="pg-num">IV</span>
+      <div class="eyebrow" style="margin-bottom: 2mm;">Complete 6-Course Menus · Part 3 &amp; How It Works</div>
+      <div class="pair-row">
+        <article class="h-card">
+          <div class="h-img"><img src="../../website/images/russian-tsarist-feast.webp" alt="Aristocratic Dacha"><div class="h-yr">1880</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">19th C. Russia · 6 Courses</div>
+              <h3>The Aristocratic Dacha</h3>
+              <p>Imperial Slavic estate classics fused with French haute cuisine.</p>
+            </div>
+            <div class="h-dish">Signature dish: Blini with caviar</div>
+          </div>
+        </article>
+        <article class="h-card" style="background: rgba(181,149,107,0.08); border-color: rgba(181,149,107,0.5);">
+          <div class="h-img"><img src="../../website/images/table-setting-banquet.webp" alt="Custom Era"><div class="h-yr">CUSTOM</div></div>
+          <div class="h-body">
+            <div>
+              <div class="eyebrow" style="font-size: 6pt;">How It Works · Any Era</div>
+              <h3>Commission Any Period</h3>
+              <p>1. Pick one menu or request any era. 2. In-person kitchen &amp; dietary visit. 3. Live storytelling &amp; spotless cleanup.</p>
+            </div>
+            <div class="h-dish">6–24 guests · At home or N10</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

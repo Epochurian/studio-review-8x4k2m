@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Epochurian — Leaflet 21 (Z-Fold · Alternating Above/Below Wave Timeline · 5 Menus)</title>
+  <link rel="stylesheet" href="../assets/brand.css">
+  <style>
+    @page { size: A4 landscape; margin: 0; }
+    body {
+      background: #1a1816;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12mm;
+      padding: 10mm 0;
+    }
+    .sheet {
+      width: 297mm;
+      height: 210mm;
+      background: var(--bg-primary);
+      color: var(--sandstone-light);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      page-break-after: always;
+    }
+    .outside-grid { display: grid; grid-template-columns: repeat(3, 99mm); height: 100%; }
+    .panel {
+      width: 99mm;
+      height: 210mm;
+      padding: 12mm 10mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 0.25mm dashed rgba(181, 149, 107, 0.22);
+    }
+    .panel:last-child { border-right: none; }
+    .pg-num {
+      position: absolute;
+      bottom: 3.5mm;
+      right: 4.5mm;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      opacity: 0.65;
+      z-index: 5;
+    }
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5mm;
+    }
+    h2.title { font-family: var(--font-heading); font-size: 19pt; line-height: 1.06; margin-bottom: 2.5mm; }
+    .body-copy { font-family: var(--font-sans); font-size: 9pt; line-height: 1.48; color: var(--text-main); }
+
+    /* Cover */
+    .cover { padding: 0; }
+    .cover .bg { position: absolute; inset: 0; }
+    .cover .bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62); }
+    .cover .inner {
+      position: relative;
+      z-index: 2;
+      margin: 5.5mm;
+      height: calc(100% - 11mm);
+      padding: 12mm 9mm;
+      border: 0.35mm solid rgba(181, 149, 107, 0.42);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(14,13,12,0.84) 0%, rgba(14,13,12,0.16) 48%, rgba(14,13,12,0.92) 100%);
+    }
+    .wordmark { font-family: var(--font-heading); font-size: 25pt; letter-spacing: 0.2em; line-height: 1; }
+    .tagline { font-family: var(--font-tagline); font-size: 27pt; color: var(--gold); line-height: 1; }
+
+    /* Inside: Alternating Above/Below Central Axis Wave Timeline */
+    .inside-wrap {
+      padding: 9mm 6mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .crease-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      border-left: 0.25mm dashed rgba(181, 149, 107, 0.22);
+      pointer-events: none;
+    }
+    .pano-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 0.4mm solid rgba(181, 149, 107, 0.35);
+      padding-bottom: 2.5mm;
+      margin: 0 3mm;
+    }
+    .wave-stage {
+      position: relative;
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4mm;
+      padding: 3mm 3mm 0;
+    }
+    .central-axis {
+      position: absolute;
+      top: 50%;
+      left: 3mm;
+      right: 3mm;
+      height: 0.5mm;
+      background: linear-gradient(90deg, rgba(181,149,107,0.35), var(--gold), rgba(181,149,107,0.35));
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .wave-col {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 8mm;
+      position: relative;
+      z-index: 2;
+    }
+    .node-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4mm;
+      height: 4mm;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 0.7mm solid var(--bg-primary);
+      z-index: 4;
+    }
+    .stem {
+      position: absolute;
+      left: 50%;
+      width: 0.4mm;
+      background: rgba(181, 149, 107, 0.55);
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .stem.up { top: calc(50% - 4.5mm); height: 4.5mm; }
+    .stem.down { top: 50%; height: 4.5mm; }
+
+    .w-card {
+      background: var(--bg-secondary);
+      border: 0.35mm solid rgba(181, 149, 107, 0.34);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .w-card.bespoke { background: rgba(181, 149, 107, 0.09); border-color: rgba(181, 149, 107, 0.55); }
+    .w-img { height: 32mm; overflow: hidden; }
+    .w-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .w-body { padding: 2.5mm 3mm; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+    .w-body h3 { font-family: var(--font-heading); font-size: 11pt; line-height: 1.08; margin: 0.4mm 0 1mm; }
+    .w-body p { font-family: var(--font-sans); font-size: 7.9pt; line-height: 1.35; color: var(--text-main); }
+
+    /* Opposite half: Ghosted Roman Century + Signature Dish Callout (turns empty space into deliberate editorial rhythm!) */
+    .w-echo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4mm 2.5mm;
+    }
+    .w-echo .yr-big {
+      font-family: var(--font-heading);
+      font-size: 27pt;
+      line-height: 1;
+      color: rgba(181, 149, 107, 0.35);
+      letter-spacing: 0.06em;
+      margin-bottom: 2mm;
+    }
+    .w-echo .dish-tag {
+      font-family: var(--font-sans);
+      font-size: 6.2pt;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1mm;
+    }
+    .w-echo .dish-name {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 9pt;
+      line-height: 1.3;
+      color: var(--sandstone-light);
+    }
+
+    .photo-box { width: 100%; overflow: hidden; border: 0.35mm solid rgba(181, 149, 107, 0.3); padding: 1.5mm; background: var(--bg-secondary); }
+    .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .c-line { border-bottom: 0.25mm solid rgba(181, 149, 107, 0.25); padding: 2mm 0; font-family: var(--font-sans); font-size: 9.8pt; font-weight: 600; }
+    .c-line span { font-size: 6.5pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); display: block; }
+    .qr-box { width: 28mm; height: 28mm; background: var(--sandstone-light); padding: 1mm; flex-shrink: 0; }
+    .qr-box img { width: 100%; height: 100%; display: block; }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .sheet { box-shadow: none; }
+      .panel, .crease-line { border: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- OUTSIDE: I (Cover) | V (Meet Josh) | VI (Contact & QR) -->
+  <div class="sheet">
+    <div class="outside-grid">
+      <section class="panel cover">
+        <span class="pg-num">I</span>
+        <div class="bg"><img src="../../website/images/banquet-guests-laughing.webp" alt="Epochurian banquet"></div>
+        <div class="inner">
+          <div>
+            <div class="wordmark">EPOCHURIAN</div>
+            <div class="tagline">Taste History</div>
+          </div>
+          <div>
+            <h1 style="font-family: var(--font-heading); font-size: 20.5pt; line-height: 1.08; margin-bottom: 3mm;">Choose Your Century. Six Courses Cooked Live at Home.</h1>
+            <p class="eyebrow" style="margin: 0; color: var(--gold-hover);">Historical Private Dining · London</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <span class="pg-num">V</span>
+        <div>
+          <div class="eyebrow">The Founder &amp; Chef</div>
+          <h2 class="title">Private Dining, Reimagined</h2>
+          <div class="photo-box" style="height: 52mm; margin-bottom: 3.5mm;">
+            <img src="../../website/images/medieval-hall-candlelight.webp" alt="Josh presenting">
+          </div>
+          <p class="body-copy">
+            Chef Josh grew up across Cantonese, Shanghainese, Egyptian, Russian, Dutch and British kitchens, cooking since age 10. Each booking centres on <strong>one complete 6-course banquet</strong> from a single historical era.
+          </p>
+          <p class="body-copy" style="margin-top: 3mm; padding-left: 3mm; border-left: 0.5mm solid var(--gold); font-family: var(--font-body); font-style: italic; color: var(--sandstone-light);">
+            "Everything I ate was new and I enjoyed every bite." — Ming guest, N. London
+          </p>
+        </div>
+        <div class="eyebrow" style="margin: 0; color: var(--sandstone);">6–24 Guests · Spotless Cleanup</div>
+      </section>
+
+      <section class="panel" style="background: var(--bg-secondary);">
+        <span class="pg-num">VI</span>
+        <div>
+          <div class="eyebrow">Begin Your Journey</div>
+          <h2 class="title">Book a Banquet</h2>
+          <p class="body-copy">
+            Private homes across London &amp; Greater London, or limited dates in our N10 garden venue.
+          </p>
+          <div style="margin-top: 4mm; border-top: 0.35mm solid rgba(181,149,107,0.35);">
+            <div class="c-line"><span>Website</span>epochurian.com</div>
+            <div class="c-line"><span>Email</span>info@epochurian.com</div>
+            <div class="c-line"><span>Phone &amp; WhatsApp</span>+44 7874 898636</div>
+            <div class="c-line" style="border-bottom: none;"><span>Instagram</span>@epochurian</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4mm;">
+          <div class="qr-box"><img src="../assets/qr-web-dark.svg" alt="QR"></div>
+          <div>
+            <div class="eyebrow" style="margin-bottom: 1mm;">Explore Full Menus</div>
+            <p class="body-copy" style="font-size: 8.2pt;">Scan to see every course inside each 6-course menu.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- INSIDE: Alternating Wave Timeline (Above / Below Central Axis) -->
+  <div class="sheet">
+    <div class="crease-line" style="left: 99mm;"></div>
+    <div class="crease-line" style="left: 198mm;"></div>
+    <span class="pg-num">II · III · IV</span>
+    <div class="inside-wrap">
+      <div class="pano-head">
+        <div>
+          <div class="eyebrow" style="margin-bottom: 0.5mm;">Five Complete 6-Course Menus</div>
+          <h2 class="title" style="margin: 0;">Select One Era for Your Evening</h2>
+        </div>
+        <div class="eyebrow" style="margin: 0; color: var(--sandstone);">One Signature Dish Pictured Per Menu</div>
+      </div>
+
+      <div class="wave-stage">
+        <div class="central-axis"></div>
+
+        <!-- Col 1: 1066 ABOVE -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem up"></div>
+          <article class="w-card">
+            <div class="w-img"><img src="../../website/images/norman-duck-main.webp" alt="Norman Conquest"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">11th C. · 6 Courses</div><h3>The Norman Conquest</h3></div>
+              <p>Forest game, spiced meats &amp; flowing wine fit for William's court.</p>
+            </div>
+          </article>
+          <div class="w-echo">
+            <div class="yr-big">1066</div>
+            <div class="dish-tag">Pictured From Menu</div>
+            <div class="dish-name">Venison with duck liver</div>
+          </div>
+        </div>
+
+        <!-- Col 2: 1191 BELOW -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem down"></div>
+          <div class="w-echo">
+            <div class="yr-big">1191</div>
+            <div class="dish-tag">Pictured From Menu</div>
+            <div class="dish-name">Soured pomegranate confection</div>
+          </div>
+          <article class="w-card">
+            <div class="w-img"><img src="../../website/images/court-of-saladin.webp" alt="Court of Saladin"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">12th C. · 6 Courses</div><h3>The Court of Saladin</h3></div>
+              <p>Ayyubid royal hospitality with spit-roasts, saffron &amp; rose water.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Col 3: 1420 ABOVE -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem up"></div>
+          <article class="w-card">
+            <div class="w-img"><img src="../../website/images/chef-plating-service.webp" alt="The Great Ming"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">15th C. · 6 Courses</div><h3>The Great Ming</h3></div>
+              <p>Imperial palace artistry contrasted with bold provincial Chinese flavours.</p>
+            </div>
+          </article>
+          <div class="w-echo">
+            <div class="yr-big">1420</div>
+            <div class="dish-tag">Pictured From Menu</div>
+            <div class="dish-name">Snow fungus &amp; pear soup</div>
+          </div>
+        </div>
+
+        <!-- Col 4: 1519 BELOW -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem down"></div>
+          <div class="w-echo">
+            <div class="yr-big">1519</div>
+            <div class="dish-tag">Pictured From Menu</div>
+            <div class="dish-name">Tobacco-infused dessert</div>
+          </div>
+          <article class="w-card">
+            <div class="w-img"><img src="../../website/images/age-of-discovery-aztec.webp" alt="Voyage to New World"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">Discovery · 6 Courses</div><h3>Voyage to the New World</h3></div>
+              <p>The Columbian Exchange in six courses from Europe to Tenochtitlan.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Col 5: 1880 ABOVE -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem up"></div>
+          <article class="w-card">
+            <div class="w-img"><img src="../../website/images/russian-tsarist-feast.webp" alt="Aristocratic Dacha"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">19th C. · 6 Courses</div><h3>The Aristocratic Dacha</h3></div>
+              <p>Imperial Slavic estate classics fused with meticulous French haute cuisine.</p>
+            </div>
+          </article>
+          <div class="w-echo">
+            <div class="yr-big">1880</div>
+            <div class="dish-tag">Pictured From Menu</div>
+            <div class="dish-name">Blini with caviar</div>
+          </div>
+        </div>
+
+        <!-- Col 6: YOUR ERA BELOW -->
+        <div class="wave-col">
+          <div class="node-dot"></div>
+          <div class="stem down"></div>
+          <div class="w-echo">
+            <div class="yr-big">ANY ERA</div>
+            <div class="dish-tag">How It Works</div>
+            <div class="dish-name">Site visit · Live service · Spotless cleanup</div>
+          </div>
+          <article class="w-card bespoke">
+            <div class="w-img"><img src="../../website/images/table-setting-banquet.webp" alt="Commission any era"></div>
+            <div class="w-body">
+              <div><div class="eyebrow" style="font-size: 5.8pt;">Bespoke · 6 Courses</div><h3>Commission Any Period</h3></div>
+              <p>Pick a signature menu or request any era, tailored to your kitchen &amp; dietaries.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
