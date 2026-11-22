@@ -23,6 +23,46 @@ if [ "$SYNC_PHYSICAL" = true ] && [ -d "$WORKSPACE_ROOT/Physical Media" ]; then
     "$WORKSPACE_ROOT/Physical Media/" "$SCRIPT_DIR/physical-media/"
 fi
 
+# Pull in any workspace assets referenced by relative paths (e.g. ../website/images/*.webp)
+WORKSPACE_ROOT="$WORKSPACE_ROOT" python3 - <<'PY'
+import os, re, shutil
+from urllib.parse import unquote
+
+review_root = os.getcwd()
+ws_root = os.environ["WORKSPACE_ROOT"]
+copied = 0
+
+for dirpath, _, filenames in os.walk(review_root):
+    if ".git" in dirpath.split(os.sep):
+        continue
+    for fn in filenames:
+        if not fn.endswith((".html", ".css")):
+            continue
+        file_path = os.path.join(dirpath, fn)
+        with open(file_path, "r", errors="ignore") as f:
+            txt = f.read()
+        for m in re.findall(r'(?:src|href|url)\s*[=(]\s*["\']?([^"\'\)\s>]+)', txt):
+            if m.startswith(("http://", "https://", "data:", "#", "mailto:", "tel:", "/")):
+                continue
+            clean = unquote(m.split("?")[0].split("#")[0])
+            if not clean:
+                continue
+            dest = os.path.normpath(os.path.join(dirpath, clean))
+            if not dest.startswith(review_root + os.sep):
+                continue
+            if os.path.exists(dest):
+                continue
+            rel_from_review = os.path.relpath(dest, review_root)
+            src = os.path.join(ws_root, rel_from_review)
+            if os.path.isfile(src):
+                os.makedirs(os.path.dirname(dest), exist_ok=True)
+                shutil.copy2(src, dest)
+                copied += 1
+
+if copied:
+    print(f"Copied {copied} referenced workspace asset(s) into review/.")
+PY
+
 # Rebuild sections.json from known galleries + any extra folders in review/
 python3 - <<'PY'
 import json, os, datetime
